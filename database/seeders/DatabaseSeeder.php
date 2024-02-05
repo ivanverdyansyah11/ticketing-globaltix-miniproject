@@ -23,5 +23,11 @@ class DatabaseSeeder extends Seeder
         $this->call(TourGuideSeeder::class);
         $this->call(CustomerSeeder::class);
         $this->call(LanguageSeeder::class);
+        $this->call(RegionSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(RegionCategorySeeder::class);
+        $this->call(TouristSiteSeeder::class);
+        $this->call(FacilitySeeder::class);
+        $this->call(TouristSiteFacilitySeeder::class);
     }
 }
