@@ -4,32 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\View\View;
 
 class CustomerController extends Controller
 {
-    public function index() {
+    public function index() : View {
         return view('customer.index', [
             'title' => 'Customer Page',
             'customers' => Customer::orderBy('created_at', 'DESC')->paginate(10),
         ]);
     }
 
-    public function detail($id) {
+    public function detail($id) : View {
         return view('customer.detail', [
             'title' => 'Customer Page',
             'customer' => Customer::where('id', $id)->first(),
         ]);
     }
 
-    public function create() {
+    public function create() : View {
         return view('customer.create', [
             'title' => 'Customer Page',
         ]);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request) : RedirectResponse {
         try {
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
@@ -74,14 +76,14 @@ class CustomerController extends Controller
         }
     }
 
-    public function edit($id) {
+    public function edit($id) : View {
         return view('customer.edit', [
             'title' => 'Customer Page',
             'customer' => Customer::where('id', $id)->first(),
         ]);
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id) : RedirectResponse {
         $customer = Customer::where('id', $id)->first();
         $user = User::where('id', $customer->users_id)->first();
 
@@ -130,7 +132,7 @@ class CustomerController extends Controller
         }
     }
 
-    public function delete($id) {
+    public function delete($id) : RedirectResponse {
         $customer = Customer::where('id', $id)->first();
         $user = User::where('id', $customer->users_id)->first();
 
