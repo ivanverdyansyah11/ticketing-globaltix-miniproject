@@ -4,32 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\Staff;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\View\View;
 
 class StaffController extends Controller
 {
-    public function index() {
+    public function index() : View {
         return view('staff.index', [
             'title' => 'Staff Page',
             'staffs' => Staff::orderBy('created_at', 'DESC')->paginate(10),
         ]);
     }
 
-    public function detail($id) {
+    public function detail($id) : View {
         return view('staff.detail', [
             'title' => 'Staff Page',
             'staff' => Staff::where('id', $id)->first(),
         ]);
     }
 
-    public function create() {
+    public function create() : View {
         return view('staff.create', [
             'title' => 'Staff Page',
         ]);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request) : RedirectResponse {
         try {
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
@@ -74,14 +76,14 @@ class StaffController extends Controller
         }
     }
 
-    public function edit($id) {
+    public function edit($id) : View {
         return view('staff.edit', [
             'title' => 'Staff Page',
             'staff' => Staff::where('id', $id)->first(),
         ]);
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id) : RedirectResponse {
         $staff = Staff::where('id', $id)->first();
         $user = User::where('id', $staff->users_id)->first();
 
@@ -128,7 +130,7 @@ class StaffController extends Controller
         }
     }
 
-    public function delete($id) {
+    public function delete($id) : RedirectResponse {
         $staff = Staff::where('id', $id)->first();
         $user = User::where('id', $staff->users_id)->first();
 
