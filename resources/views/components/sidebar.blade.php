@@ -15,7 +15,7 @@
                     <span class="hide-menu">Home</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
+                    <a class="sidebar-link {{ Route::is('dashboard*') ? 'active' : '' }}" href="{{ route('dashboard') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
                         </span>
@@ -28,11 +28,35 @@
                     <span class="hide-menu">User</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('reseller') }}" aria-expanded="false">
+                    <a class="sidebar-link {{ Route::is('admin*') ? 'active' : '' }}" href="{{ route('admin') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-user-cog"></i>
+                        </span>
+                        <span class="hide-menu">Admin</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Route::is('staff*') ? 'active' : '' }}" href="{{ route('staff') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-user-bolt"></i>
+                        </span>
+                        <span class="hide-menu">Staff</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Route::is('tourguide*') ? 'active' : '' }}" href="{{ route('tourguide') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-user-shield"></i>
+                        </span>
+                        <span class="hide-menu">Tour Guide</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Route::is('customer*') ? 'active' : '' }}" href="{{ route('customer') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-users"></i>
                         </span>
-                        <span class="hide-menu">Reseller</span>
+                        <span class="hide-menu">Customer</span>
                     </a>
                 </li>
 
@@ -41,61 +65,56 @@
                     <span class="hide-menu">Management</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('category') }}" aria-expanded="false">
+                    <a class="sidebar-link {{ Route::is('region*') ? 'active' : '' }}" href="{{ route('region') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-list-details"></i>
+                            <i class="ti ti-flag"></i>
+                        </span>
+                        <span class="hide-menu">Region</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Route::is('category*') ? 'active' : '' }}" href="{{ route('category') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-brand-superhuman"></i>
                         </span>
                         <span class="hide-menu">Category</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('product') }}" aria-expanded="false">
+                    <a class="sidebar-link {{ Route::is('region_category*') ? 'active' : '' }}" href="{{ route('region_category') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-cheese"></i>
+                            <i class="ti ti-flag-pin"></i>
                         </span>
-                        <span class="hide-menu">Product</span>
+                        <span class="hide-menu">Region Category</span>
                     </a>
                 </li>
 
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">Other</span>
+                    <span class="hide-menu">Destination</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#" aria-expanded="false">
+                    <a class="sidebar-link {{ Route::is('facility*') ? 'active' : '' }}" href="{{ route('facility') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-award"></i>
+                            <i class="ti ti-kayak"></i>
                         </span>
-                        <span class="hide-menu">Reward</span>
+                        <span class="hide-menu">Facility</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#" aria-expanded="false">
+                    <a class="sidebar-link {{ Route::is('toursite*') ? 'active' : '' }}" href="{{ route('toursite') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-receipt-refund"></i>
+                            <i class="ti ti-mountain"></i>
                         </span>
-                        <span class="hide-menu">Redeem Reward</span>
-                    </a>
-                </li>
-
-                <li class="nav-small-cap">
-                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">Checkout</span>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="#" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-shopping-cart"></i>
-                        </span>
-                        <span class="hide-menu">Transaction</span>
+                        <span class="hide-menu">Tourist Site</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#" aria-expanded="false">
+                    <a class="sidebar-link {{ Route::is('toursitefacility*') ? 'active' : '' }}" href="{{ route('toursitefacility') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-report-analytics"></i>
+                            <i class="ti ti-map-discount"></i>
                         </span>
-                        <span class="hide-menu">Report</span>
+                        <span class="hide-menu">Tourist Site Facility</span>
                     </a>
                 </li>
             </ul>
