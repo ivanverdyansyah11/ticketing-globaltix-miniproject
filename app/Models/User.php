@@ -38,4 +38,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function admin() {
+        return $this->belongsTo(Admin::class, 'id');
+    }
+
+    public function staff() {
+        return $this->belongsTo(Staff::class, 'id');
+    }
+
+    public function tourguide() {
+        return $this->belongsTo(TourGuide::class, 'id');
+    }
+
+    public function customer() {
+        return $this->belongsTo(Customer::class, 'id');
+    }
 }
