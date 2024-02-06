@@ -28,6 +28,7 @@
     @endif
         
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    @stack('js')
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/sidebarmenu.js') }}"></script>
     <script src="{{ asset('assets/js/app.min.js') }}"></script>
@@ -37,7 +38,5 @@
         <script src="{{ asset('assets/js/simplebar.js') }}"></script>
         <script src="{{ asset('assets/js/dashboard.js') }}"></script>
     @endif
-
-    @stack('js')
 </body>
 </html>
