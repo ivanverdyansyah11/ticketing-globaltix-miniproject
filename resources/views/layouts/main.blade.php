@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.template.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
 </head>
 <body>
     @if (Route::is('login'))
@@ -29,8 +31,13 @@
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/sidebarmenu.js') }}"></script>
     <script src="{{ asset('assets/js/app.min.js') }}"></script>
-    <script src="{{ asset('assets/js/apexcharts.min.js') }}"></script>
-    <script src="{{ asset('assets/js/simplebar.js') }}"></script>
-    <script src="{{ asset('assets/js/dashboard.js') }}"></script>
+
+    @if (Route::is('dashboard'))
+        <script src="{{ asset('assets/js/apexcharts.min.js') }}"></script>
+        <script src="{{ asset('assets/js/simplebar.js') }}"></script>
+        <script src="{{ asset('assets/js/dashboard.js') }}"></script>
+    @endif
+
+    @stack('js')
 </body>
 </html>
