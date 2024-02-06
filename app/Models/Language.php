@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Language extends Model
 {
-    use HasFactory;
+    protected $guarded = ['id'];
+
+    // public function tourguide() {
+    //     return $this->belongsTo(TourGuide::class, 'id');
+    // }
 }
