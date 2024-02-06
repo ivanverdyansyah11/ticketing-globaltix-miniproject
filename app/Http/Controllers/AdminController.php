@@ -6,30 +6,32 @@ use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class AdminController extends Controller
 {
-    public function index() {
+    public function index(): View {
         return view('admin.index', [
             'title' => 'Admin Page',
             'admins' => Admin::orderBy('created_at', 'DESC')->paginate(10),
         ]);
     }
 
-    public function detail($id) {
+    public function detail($id) : View {
         return view('admin.detail', [
             'title' => 'Admin Page',
             'admin' => Admin::where('id', $id)->first(),
         ]);
     }
 
-    public function create() {
+    public function create() : View {
         return view('admin.create', [
             'title' => 'Admin Page',
         ]);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request) : RedirectResponse {
         try {
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
@@ -72,14 +74,14 @@ class AdminController extends Controller
         }
     }
 
-    public function edit($id) {
+    public function edit($id) : View {
         return view('admin.edit', [
             'title' => 'Admin Page',
             'admin' => Admin::where('id', $id)->first(),
         ]);
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id) : RedirectResponse {
         $admin = Admin::where('id', $id)->first();
         $user = User::where('id', $admin->users_id)->first();
 
@@ -126,7 +128,7 @@ class AdminController extends Controller
         }
     }
 
-    public function delete($id) {
+    public function delete($id) : RedirectResponse {
         $admin = Admin::where('id', $id)->first();
         $user = User::where('id', $admin->users_id)->first();
 
