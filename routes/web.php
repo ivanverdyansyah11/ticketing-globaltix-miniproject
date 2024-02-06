@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegionCategoryController;
+use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ResellerController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TourGuideController;
@@ -85,12 +86,10 @@ Route::middleware(['auth'])->group(function() {
         Route::post('/customer/delete/{id}', 'delete')->name('customer.delete');
     });
 
-    Route::controller(RegionCategory::class)->group(function() {
+    Route::controller(RegionController::class)->group(function() {
         Route::get('/region', 'index')->name('region');
         Route::get('/region/detail/{id}', 'detail')->name('region.detail');
-        Route::get('/region/add', 'create')->name('region.create');
         Route::post('/region/add', 'store')->name('region.store');
-        Route::get('/region/edit/{id}', 'edit')->name('region.edit');
         Route::post('/region/edit/{id}', 'update')->name('region.update');
         Route::post('/region/delete/{id}', 'delete')->name('region.delete');
     });
