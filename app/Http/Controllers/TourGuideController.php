@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Language;
 use App\Models\TourGuide;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\View\View;
 
 class TourGuideController extends Controller
 {
-    public function index() {
+    public function index() : View {
         return view('tourguide.index', [
             'title' => 'Tour Guide Page',
             'tourguides' => TourGuide::orderBy('created_at', 'DESC')->paginate(10),
@@ -18,7 +20,7 @@ class TourGuideController extends Controller
         ]);
     }
 
-    public function detail($id) {
+    public function detail($id) : View {
         return view('tourguide.detail', [
             'title' => 'Tour Guide Page',
             'tourguide' => TourGuide::where('id', $id)->first(),
@@ -26,14 +28,14 @@ class TourGuideController extends Controller
         ]);
     }
 
-    public function create() {
+    public function create() : View {
         return view('tourguide.create', [
             'title' => 'Tour Guide Page',
             'languages' => Language::all(),
         ]);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request) : RedirectResponse {
         try {
             $validatedData = $request->validate([
                 'languages_id' => 'required',
@@ -79,7 +81,7 @@ class TourGuideController extends Controller
         }
     }
 
-    public function edit($id) {
+    public function edit($id) : View {
         return view('tourguide.edit', [
             'title' => 'Tour Guide Page',
             'tourguide' => TourGuide::where('id', $id)->first(),
@@ -87,7 +89,7 @@ class TourGuideController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id) : RedirectResponse {
         $tourguide = TourGuide::where('id', $id)->first();
         $user = User::where('id', $tourguide->users_id)->first();
 
@@ -137,7 +139,7 @@ class TourGuideController extends Controller
         }
     }
 
-    public function delete($id) {
+    public function delete($id) : RedirectResponse {
         $tourguide = TourGuide::where('id', $id)->first();
         $user = User::where('id', $tourguide->users_id)->first();
 
