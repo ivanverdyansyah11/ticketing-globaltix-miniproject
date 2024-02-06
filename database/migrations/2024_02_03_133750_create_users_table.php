@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('email', 255);
             $table->string('password', 100);
-            $table->enum('role', ['admin', 'staff', 'tourguide', 'customer']);
+            $table->string('image');
+            $table->enum('role', ['super admin', 'admin', 'staff', 'tourguide', 'customer']);
             $table->timestamps();
         });
     }
