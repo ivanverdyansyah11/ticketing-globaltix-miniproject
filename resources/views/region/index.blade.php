@@ -97,9 +97,9 @@
             $.ajax({
                 type: 'get',
                 url: '/region/detail/' + id,
-                success: function(data) {
-                    $('[data-value="name"]').val(data.name);
-                    $('[data-value="description"]').html(data.description);
+                success: function(region) {
+                    $('[data-value="name"]').val(region.data.name);
+                    $('[data-value="description"]').html(region.data.description);
                 }
             });
         });
@@ -110,9 +110,9 @@
             $.ajax({
                 type: 'get',
                 url: '/region/detail/' + id,
-                success: function(data) {
-                    $('[data-value="name"]').val(data.name);
-                    $('[data-value="description"]').html(data.description);
+                success: function(region) {
+                    $('[data-value="name"]').val(region.data.name);
+                    $('[data-value="description"]').html(region.data.description);
                 }
             });
         });
