@@ -6,7 +6,11 @@
             <li class="nav-item dropdown">
                 <button type="button" class="nav-link nav-icon-hover" id="dropdown-profile" data-bs-toggle="dropdown"
                 aria-expanded="false">
-                    <img src="{{ asset('assets/images/profile/admin.jpg') }}" alt="Profile Image" width="35" height="35" class="rounded-circle img-fluid">
+                    @if (file_exists(public_path('assets/images/profile/' . auth()->user()->image)))
+                        <img src="{{ asset('assets/images/profile/' . $admin->image) }}" alt="Profile Admin" width="35" height="35" class="rounded-circle img-fluid">
+                    @else
+                        <img src="{{ asset('assets/images/profile/profile-not-found.jpg') }}" alt="Profile Admin" width="35" height="35" class="rounded-circle img-fluid">
+                    @endif
                 </button>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="dropdown-profile">
                 <div class="message-body">
