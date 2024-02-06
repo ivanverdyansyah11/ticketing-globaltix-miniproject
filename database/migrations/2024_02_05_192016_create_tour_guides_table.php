@@ -16,9 +16,6 @@ return new class extends Migration
             $table->bigInteger('users_id')->index();
             $table->string('languages_id')->index();
             $table->string('name', 255);
-            $table->string('email', 255)->unique();
-            $table->string('password', 100);
-            $table->string('image');
             $table->string('phone_number', 13);
             $table->date('date_of_birth');
             $table->string('place_of_birth');
