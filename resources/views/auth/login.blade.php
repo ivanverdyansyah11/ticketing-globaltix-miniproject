@@ -20,9 +20,9 @@
                 <div class="card mb-0">
                     <div class="card-body">
                         <a class="text-nowrap logo-img text-center d-block py-3 w-100">
-                            <img src="{{ asset('assets/images/brand/brand-logo.svg') }}" class="img-fluid" width="56" alt="Brand Logo">
+                            <img src="{{ asset('assets/images/brand/brand-logo.svg') }}" class="img-fluid" width="86" alt="Brand Logo">
                         </a>
-                        <p class="text-center">Your E-Commerce Trusted</p>
+                        <p class="text-center">Your Ticket Tour Destination</p>
                         <form action="{{ route('login.authenticate') }}" method="POST">
                             @csrf
                             <div class="mb-3">
