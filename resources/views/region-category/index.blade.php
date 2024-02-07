@@ -52,8 +52,20 @@
                                     <td class="border-bottom-0">
                                         <h6 class="mb-0 fw-normal">{{ $region_category->region->name }}</h6>
                                     </td>
+                                    @php
+                                        $categoryArray = explode(',', $region_category->categories_id);
+                                        $categorySelect = [];
+                                    @endphp
+                                    @foreach ($categories as $i => $category)
+                                        @if (in_array($category->id, $categoryArray))
+                                            @php
+                                                $categorySelect[] = $category->name;
+                                                $categoryName = implode(', ', $categorySelect);
+                                            @endphp
+                                        @endif
+                                    @endforeach
                                     <td class="border-bottom-0">
-                                        <p class="mb-0 fw-normal">{{ $region_category->categories_id }}</p>
+                                        <p class="mb-0 fw-normal">{{ $categoryName }}</p>
                                     </td>
                                     <td class="border-bottom-0" style="width:180px !important;">
                                         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#detailModal" data-id="{{ $region_category->id }}">
@@ -99,30 +111,31 @@
                 type: 'get',
                 url: '/regioncategory/detail/' + id,
                 success: function(regionCategory) {
-                    $('[data-value="regions_id"]').val(regionCategory.data[0].region.name);
-
-                    let categoriesArray = regionCategory.data[0].categories_id.split(",");
-                    categoriesArray = categoriesArray.map(function(string) {
-                        return parseInt(string);
-                    });
-
-                    regionCategory.data[1].forEach(category => {
-                        if (categoriesArray.includes(category.id)) {
-                            $('[data-element="row-detail-checkbox"]').append(
-                                `<div class="col mb-1">
-                                    <input type="checkbox" name="categories_id[]" id="${category.name}" value="${category.name}" checked disabled>
-                                    <label for="${category.name}">${category.name}</label>
-                                </div>`
-                            )
-                        } else {
-                            $('[data-element="row-detail-checkbox"]').append(
-                                `<div class="col mb-1">
-                                    <input type="checkbox" name="categories_id[]" id="${category.name}" value="${category.name}" disabled>
-                                    <label for="${category.name}">${category.name}</label>
-                                </div>`
-                            )
-                        }
-                    });
+                    if (regionCategory.status == 'success') {
+                        $('[data-value="regions_id"]').val(regionCategory.data[0].region.name);
+                        let categoriesArray = regionCategory.data[0].categories_id.split(",");
+                        categoriesArray = categoriesArray.map(function(string) {
+                            return parseInt(string);
+                        });
+    
+                        regionCategory.data[1].forEach(category => {
+                            if (categoriesArray.includes(category.id)) {
+                                $('[data-element="row-detail-checkbox"]').append(
+                                    `<div class="col mb-1">
+                                        <input type="checkbox" name="categories_id[]" id="${category.name}" value="${category.name}" checked disabled>
+                                        <label for="${category.name}">${category.name}</label>
+                                    </div>`
+                                )
+                            } else {
+                                $('[data-element="row-detail-checkbox"]').append(
+                                    `<div class="col mb-1">
+                                        <input type="checkbox" name="categories_id[]" id="${category.name}" value="${category.name}" disabled>
+                                        <label for="${category.name}">${category.name}</label>
+                                    </div>`
+                                )
+                            }
+                        });
+                    }
                 }
             });
         });
@@ -136,40 +149,42 @@
                 type: 'get',
                 url: '/regioncategory/detail/' + id,
                 success: function(regionCategory) {
-                    regionCategory.data[2].forEach(region => {
-                        if (region.id === regionCategory.data[0].regions_id) {
-                            $('[data-element="row-edit-select"]').append(
-                                `<option value="${region.id}" selected>${region.name}</option>`
-                            );
-                        } else {
-                            $('[data-element="row-edit-select"]').append(
-                                `<option value="${region.id}">${region.name}</option>`
-                            );
-                        }
-                    });
-
-                    let categoriesArray = regionCategory.data[0].categories_id.split(",");
-                    categoriesArray = categoriesArray.map(function(string) {
-                        return parseInt(string);
-                    });
-
-                    regionCategory.data[1].forEach(category => {
-                        if (categoriesArray.includes(category.id)) {
-                            $('[data-element="row-edit-checkbox"]').append(
-                                `<div class="col mb-1">
-                                    <input type="checkbox" name="categories_id[]" id="${category.name}" value="${category.id}" checked>
-                                    <label for="${category.name}">${category.name}</label>
-                                </div>`
-                            )
-                        } else {
-                            $('[data-element="row-edit-checkbox"]').append(
-                                `<div class="col mb-1">
-                                    <input type="checkbox" name="categories_id[]" id="${category.name}" value="${category.id}">
-                                    <label for="${category.name}">${category.name}</label>
-                                </div>`
-                            )
-                        }
-                    });
+                    if (regionCategory.status == 'success') {
+                        regionCategory.data[2].forEach(region => {
+                            if (region.id === regionCategory.data[0].regions_id) {
+                                $('[data-element="row-edit-select"]').append(
+                                    `<option value="${region.id}" selected>${region.name}</option>`
+                                );
+                            } else {
+                                $('[data-element="row-edit-select"]').append(
+                                    `<option value="${region.id}">${region.name}</option>`
+                                );
+                            }
+                        });
+    
+                        let categoriesArray = regionCategory.data[0].categories_id.split(",");
+                        categoriesArray = categoriesArray.map(function(string) {
+                            return parseInt(string);
+                        });
+    
+                        regionCategory.data[1].forEach(category => {
+                            if (categoriesArray.includes(category.id)) {
+                                $('[data-element="row-edit-checkbox"]').append(
+                                    `<div class="col mb-1">
+                                        <input type="checkbox" name="categories_id[]" id="${category.name}" value="${category.id}" checked>
+                                        <label for="${category.name}">${category.name}</label>
+                                    </div>`
+                                )
+                            } else {
+                                $('[data-element="row-edit-checkbox"]').append(
+                                    `<div class="col mb-1">
+                                        <input type="checkbox" name="categories_id[]" id="${category.name}" value="${category.id}">
+                                        <label for="${category.name}">${category.name}</label>
+                                    </div>`
+                                )
+                            }
+                        });
+                    }
                 }
             });
         });
