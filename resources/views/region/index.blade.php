@@ -98,8 +98,10 @@
                 type: 'get',
                 url: '/region/detail/' + id,
                 success: function(region) {
-                    $('[data-value="name"]').val(region.data.name);
-                    $('[data-value="description"]').html(region.data.description);
+                    if (region.status == 'success') {
+                        $('[data-value="name"]').val(region.data.name);
+                        $('[data-value="description"]').html(region.data.description);
+                    }
                 }
             });
         });
@@ -111,8 +113,10 @@
                 type: 'get',
                 url: '/region/detail/' + id,
                 success: function(region) {
-                    $('[data-value="name"]').val(region.data.name);
-                    $('[data-value="description"]').html(region.data.description);
+                    if (region.status == 'success') {
+                        $('[data-value="name"]').val(region.data.name);
+                        $('[data-value="description"]').html(region.data.description);
+                    }
                 }
             });
         });
