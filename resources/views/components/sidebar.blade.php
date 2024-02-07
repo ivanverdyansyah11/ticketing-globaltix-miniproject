@@ -102,7 +102,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Route::is('toursite*') ? 'active' : '' }}" href="{{ route('toursite') }}" aria-expanded="false">
+                    <a class="sidebar-link {{ Route::is('toursite') ? 'active' : '' }}" href="{{ route('toursite') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-mountain"></i>
                         </span>
