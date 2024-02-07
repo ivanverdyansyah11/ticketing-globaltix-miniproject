@@ -65,7 +65,7 @@
                     <span class="hide-menu">Management</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Route::is('region*') ? 'active' : '' }}" href="{{ route('region') }}" aria-expanded="false">
+                    <a class="sidebar-link {{ Route::is('region') ? 'active' : '' }}" href="{{ route('region') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-flag"></i>
                         </span>
