@@ -121,9 +121,7 @@ Route::middleware(['auth'])->group(function() {
     Route::controller(TouristSiteController::class)->group(function() {
         Route::get('/toursite', 'index')->name('toursite');
         Route::get('/toursite/detail/{id}', 'detail')->name('toursite.detail');
-        Route::get('/toursite/add', 'create')->name('toursite.create');
         Route::post('/toursite/add', 'store')->name('toursite.store');
-        Route::get('/toursite/edit/{id}', 'edit')->name('toursite.edit');
         Route::post('/toursite/edit/{id}', 'update')->name('toursite.update');
         Route::post('/toursite/delete/{id}', 'delete')->name('toursite.delete');
     });
