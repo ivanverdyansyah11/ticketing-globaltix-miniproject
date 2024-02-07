@@ -53,7 +53,7 @@ class FacilityController extends Controller
             return redirect(route('facility'))->with('success', 'Successfully Update Facility!');
 
         } catch (\Throwable $th) {
-            return redirect(route('facility.edit', $id))->with('failed', 'Failed Update Facility!');
+            return redirect(route('facility'))->with('failed', 'Failed Update Facility!');
         }
     }
 
