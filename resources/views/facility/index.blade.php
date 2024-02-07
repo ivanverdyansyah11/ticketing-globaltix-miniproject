@@ -98,8 +98,10 @@
                 type: 'get',
                 url: '/facility/detail/' + id,
                 success: function(facility) {
-                    $('[data-value="name"]').val(facility.data.name);
-                    $('[data-value="description"]').html(facility.data.description);
+                    if (facility.status == 'success') {
+                        $('[data-value="name"]').val(facility.data.name);
+                        $('[data-value="description"]').html(facility.data.description);
+                    }
                 }
             });
         });
@@ -111,8 +113,10 @@
                 type: 'get',
                 url: '/facility/detail/' + id,
                 success: function(facility) {
-                    $('[data-value="name"]').val(facility.data.name);
-                    $('[data-value="description"]').html(facility.data.description);
+                    if (facility.status == 'success') {
+                        $('[data-value="name"]').val(facility.data.name);
+                        $('[data-value="description"]').html(facility.data.description);
+                    }
                 }
             });
         });
