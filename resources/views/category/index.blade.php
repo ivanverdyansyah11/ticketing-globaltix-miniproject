@@ -98,8 +98,10 @@
                 type: 'get',
                 url: '/category/detail/' + id,
                 success: function(category) {
-                    $('[data-value="name"]').val(category.data.name);
-                    $('[data-value="description"]').html(category.data.description);
+                    if (category.status == 'success') {
+                        $('[data-value="name"]').val(category.data.name);
+                        $('[data-value="description"]').html(category.data.description);
+                    }
                 }
             });
         });
@@ -111,8 +113,10 @@
                 type: 'get',
                 url: '/category/detail/' + id,
                 success: function(category) {
-                    $('[data-value="name"]').val(category.data.name);
-                    $('[data-value="description"]').html(category.data.description);
+                    if (category.status == 'success') {
+                        $('[data-value="name"]').val(category.data.name);
+                        $('[data-value="description"]').html(category.data.description);
+                    }
                 }
             });
         });
