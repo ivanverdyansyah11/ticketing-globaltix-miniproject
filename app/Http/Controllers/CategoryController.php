@@ -53,7 +53,7 @@ class CategoryController extends Controller
             return redirect(route('category'))->with('success', 'Successfully Update Category!');
 
         } catch (\Throwable $th) {
-            return redirect(route('Category.edit', $id))->with('failed', 'Failed Update Category!');
+            return redirect(route('Category'))->with('failed', 'Failed Update Category!');
         }
     }
 
