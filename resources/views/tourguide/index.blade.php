@@ -31,9 +31,6 @@
                                 <h6 class="fw-semibold mb-0">Name</h6>
                             </th>
                             <th class="border-bottom-0">
-                                <h6 class="fw-semibold mb-0">Email</h6>
-                            </th>
-                            <th class="border-bottom-0">
                                 <h6 class="fw-semibold mb-0">Language</h6>
                             </th>
                             <th class="border-bottom-0">
@@ -58,11 +55,20 @@
                                     <td class="border-bottom-0">
                                         <h6 class="mb-0 fw-normal">{{ $tourguide->name }}</h6>
                                     </td>
+                                    @php
+                                        $languageArray = explode(',', $tourguide->languages_id);
+                                        $languageSelect = [];
+                                    @endphp
+                                    @foreach ($languages as $i => $language)
+                                        @if (in_array($language->id, $languageArray))
+                                            @php
+                                                $languageSelect[] = $language->name;
+                                                $languageName = implode(', ', $languageSelect);
+                                            @endphp
+                                        @endif
+                                    @endforeach
                                     <td class="border-bottom-0">
-                                        <p class="mb-0 fw-normal">{{ $tourguide->user->email }}</p>
-                                    </td>
-                                    <td class="border-bottom-0">
-                                        <p class="mb-0 fw-normal">{{ $tourguide->languages_id }}</p>
+                                        <p class="mb-0 fw-normal">{{ $languageName }}</p>
                                     </td>
                                     <td class="border-bottom-0">
                                         <p class="mb-0 fw-normal">{{ $tourguide->place_of_birth }}, {{ \Carbon\Carbon::createFromFormat('Y-m-d', $tourguide->date_of_birth)->format('d F Y') }}</p>
@@ -78,14 +84,11 @@
                                                 <i class="ti ti-edit"></i>
                                             </span>
                                         </a>
-                                        <form action="{{ route('tourguide.delete', $tourguide->id) }}" method="POST" class="d-inline-block">
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger">
-                                                <span>
-                                                    <i class="ti ti-trash"></i>
-                                                </span>
-                                            </button>
-                                        </form>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $tourguide->id }}">
+                                            <span>
+                                                <i class="ti ti-trash"></i>
+                                            </span>
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -103,4 +106,15 @@
         </div>
     </div>
 </div>    
+
+
+@include('partials.tourguide')
+@push('js')
+    <script>
+        $(document).on('click', '[data-bs-target="#deleteModal"]', function() {
+            let id = $(this).data('id');
+            $('#buttonDeleteTourGuide').attr('action', '/tourguide/delete/' + id);
+        });
+    </script>
+@endpush
 @endsection
