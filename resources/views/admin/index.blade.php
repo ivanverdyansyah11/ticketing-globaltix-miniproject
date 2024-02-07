@@ -78,14 +78,11 @@
                                                 <i class="ti ti-edit"></i>
                                             </span>
                                         </a>
-                                        <form action="{{ route('admin.delete', $admin->id) }}" method="POST" class="d-inline-block">
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger">
-                                                <span>
-                                                    <i class="ti ti-trash"></i>
-                                                </span>
-                                            </button>
-                                        </form>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $admin->id }}">
+                                            <span>
+                                                <i class="ti ti-trash"></i>
+                                            </span>
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -103,4 +100,14 @@
         </div>
     </div>
 </div>    
+
+@include('partials.admin')
+@push('js')
+    <script>
+        $(document).on('click', '[data-bs-target="#deleteModal"]', function() {
+            let id = $(this).data('id');
+            $('#buttonDeleteAdmin').attr('action', '/admin/delete/' + id);
+        });
+    </script>
+@endpush
 @endsection
