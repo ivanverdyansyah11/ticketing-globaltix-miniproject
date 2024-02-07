@@ -60,7 +60,7 @@ class RegionCategoryController extends Controller
             return redirect(route('region_category'))->with('success', 'Successfully Update Region Category!');
 
         } catch (\Throwable $th) {
-            return redirect(route('region.edit', $id))->with('failed', 'Failed Update Region Category!');
+            return redirect(route('region_category'))->with('failed', 'Failed Update Region Category!');
         }
     }
 
