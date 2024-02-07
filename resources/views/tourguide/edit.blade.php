@@ -32,12 +32,12 @@
                   @endphp
                   @foreach ($languages as $language)
                     @if (in_array($language->id, $language_selected))
-                      <div class="col">
+                      <div class="col mb-1">
                         <input type="checkbox" name="languages_id[]" id="{{ $language->name }}" checked value="{{ $language->id }}">
                         <label for="{{ $language->name }}">{{ $language->name }}</label>
                       </div>
                     @else
-                      <div class="col">
+                      <div class="col mb-1">
                         <input type="checkbox" name="languages_id[]" id="{{ $language->name }}" value="{{ $language->id }}">
                         <label for="{{ $language->name }}">{{ $language->name }}</label>
                       </div>

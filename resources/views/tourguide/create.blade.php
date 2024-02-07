@@ -29,7 +29,7 @@
                 <label class="form-label">Language</label>
                 <div class="row row-cols-md-2 row-cols-md-3 row-cols-lg-4">
                   @foreach ($languages as $language)
-                    <div class="col">
+                    <div class="col mb-1">
                       <input type="checkbox" name="languages_id[]" id="{{ $language->name }}" value="{{ $language->id }}">
                       <label for="{{ $language->name }}">{{ $language->name }}</label>
                     </div>
