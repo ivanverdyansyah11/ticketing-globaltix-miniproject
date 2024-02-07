@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class TouristSite extends Model
 {
     protected $guarded = ['id'];
+
+    public function regioncategory() {
+        return $this->belongsTo(RegionCategory::class, 'region_categories_id');
+    }
 }
