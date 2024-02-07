@@ -105,9 +105,7 @@ Route::middleware(['auth'])->group(function() {
     Route::controller(RegionCategoryController::class)->group(function() {
         Route::get('/regioncategory', 'index')->name('region_category');
         Route::get('/regioncategory/detail/{id}', 'detail')->name('region_category.detail');
-        Route::get('/regioncategory/add', 'create')->name('region_category.create');
         Route::post('/regioncategory/add', 'store')->name('region_category.store');
-        Route::get('/regioncategory/edit/{id}', 'edit')->name('region_category.edit');
         Route::post('/regioncategory/edit/{id}', 'update')->name('region_category.update');
         Route::post('/regioncategory/delete/{id}', 'delete')->name('region_category.delete');
     });
@@ -115,9 +113,7 @@ Route::middleware(['auth'])->group(function() {
     Route::controller(FacilityController::class)->group(function() {
         Route::get('/facility', 'index')->name('facility');
         Route::get('/facility/detail/{id}', 'detail')->name('facility.detail');
-        Route::get('/facility/add', 'create')->name('facility.create');
         Route::post('/facility/add', 'store')->name('facility.store');
-        Route::get('/facility/edit/{id}', 'edit')->name('facility.edit');
         Route::post('/facility/edit/{id}', 'update')->name('facility.update');
         Route::post('/facility/delete/{id}', 'delete')->name('facility.delete');
     });
