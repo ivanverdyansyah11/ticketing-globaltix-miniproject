@@ -14,31 +14,31 @@ class TouristSiteSeeder extends Seeder
     public function run(): void
     {
         TouristSite::create([
-            'region_categories' => 1,
+            'region_categories_id' => 1,
             'name' => 'City Museum',
             'description' => 'Iconic museum showcasing city history',
         ]);
 
         TouristSite::create([
-            'region_categories' => 2,
+            'region_categories_id' => 2,
             'name' => 'Sunset Bay',
             'description' => 'Scenic beach with breathtaking sunset views',
         ]);
 
         TouristSite::create([
-            'region_categories' => 3,
+            'region_categories_id' => 3,
             'name' => 'Pine Peak Trail',
             'description' => 'Picturesque mountain trail for hiking',
         ]);
 
         TouristSite::create([
-            'region_categories' => 4,
+            'region_categories_id' => 4,
             'name' => 'Old Town Square',
             'description' => 'Historic town square with charming architecture',
         ]);
 
         TouristSite::create([
-            'region_categories' => 5,
+            'region_categories_id' => 5,
             'name' => 'Sunflower Fields',
             'description' => 'Countryside fields filled with vibrant sunflowers',
         ]);
