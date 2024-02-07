@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tourist_sites', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('region_categories')->index();
+            $table->bigInteger('region_categories_id')->index();
             $table->string('name', 100);
             $table->text('description');
             $table->timestamps();
