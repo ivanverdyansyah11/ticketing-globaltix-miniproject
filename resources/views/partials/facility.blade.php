@@ -43,8 +43,7 @@
                 <h1 class="modal-title fs-5" id="detailModalLabel">Modal Detail Facility</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('facility.store') }}" method="POST" class="d-inline-block w-100">
-                @csrf
+            <form class="d-inline-block w-100">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
