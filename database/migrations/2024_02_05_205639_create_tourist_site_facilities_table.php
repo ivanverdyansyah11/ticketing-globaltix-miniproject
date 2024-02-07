@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tourist_site_facilities', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('tourist_sites_id')->index();
-            $table->bigInteger('facilities_id')->index();
+            $table->string('facilities_id')->index();
             $table->timestamps();
         });
     }
