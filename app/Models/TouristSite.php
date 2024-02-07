@@ -12,4 +12,8 @@ class TouristSite extends Model
     public function regioncategory() {
         return $this->belongsTo(RegionCategory::class, 'region_categories_id');
     }
+
+    public function touristsitefacility() {
+        return $this->belongsTo(TouristSiteFacility::class, 'id');
+    }
 }
