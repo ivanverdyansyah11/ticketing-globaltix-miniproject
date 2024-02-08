@@ -154,6 +154,27 @@
                         <span class="hide-menu">Coupon</span>
                     </a>
                 </li>
+
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Checkout</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Route::is('transaction*') ? 'active' : '' }}" href="{{ route('transaction.create') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-credit-card-pay"></i>
+                        </span>
+                        <span class="hide-menu">Transaction</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Route::is('report*') ? 'active' : '' }}" href="{{ route('report') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-report-analytics"></i>
+                        </span>
+                        <span class="hide-menu">Report</span>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>
