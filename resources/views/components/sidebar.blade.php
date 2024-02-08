@@ -117,6 +117,35 @@
                         <span class="hide-menu">Tourist Site Facility</span>
                     </a>
                 </li>
+
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Preparation</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Route::is('ticketcategory*') ? 'active' : '' }}" href="{{ route('ticketcategory') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-article"></i>
+                        </span>
+                        <span class="hide-menu">Ticket Category</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Route::is('ticket') ? 'active' : '' }}" href="{{ route('ticket') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-ticket"></i>
+                        </span>
+                        <span class="hide-menu">Ticket</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Route::is('coupon*') ? 'active' : '' }}" href="{{ route('coupon') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-discount-2"></i>
+                        </span>
+                        <span class="hide-menu">Coupon</span>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>
