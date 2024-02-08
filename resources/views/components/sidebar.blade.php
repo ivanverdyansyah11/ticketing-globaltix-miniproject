@@ -65,9 +65,17 @@
                     <span class="hide-menu">Management</span>
                 </li>
                 <li class="sidebar-item">
+                    <a class="sidebar-link {{ Route::is('language*') ? 'active' : '' }}" href="{{ route('language') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-language"></i>
+                        </span>
+                        <span class="hide-menu">Language</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a class="sidebar-link {{ Route::is('region') ? 'active' : '' }}" href="{{ route('region') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-flag"></i>
+                            <i class="ti ti-plane-tilt"></i>
                         </span>
                         <span class="hide-menu">Region</span>
                     </a>
@@ -83,7 +91,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link {{ Route::is('region_category*') ? 'active' : '' }}" href="{{ route('region_category') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-flag-pin"></i>
+                            <i class="ti ti-beach"></i>
                         </span>
                         <span class="hide-menu">Region Category</span>
                     </a>
