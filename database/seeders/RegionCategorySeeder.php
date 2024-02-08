@@ -35,7 +35,7 @@ class RegionCategorySeeder extends Seeder
 
         RegionCategory::create([
             'regions_id' => 5,
-            'categories_id' => '1,5',
+            'categories_id' => '1,3',
         ]);
     }
 }
