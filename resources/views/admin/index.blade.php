@@ -88,14 +88,10 @@
                             @endforeach
                         @endif
                     </tbody>
-                    {{-- <tbody>
-                        <tr>
-                            <td class="border-bottom-0 bg-danger">
-                                {{ $admins->links() }}
-                            </td>
-                        </tr>
-                    </tbody> --}}
                 </table>
+                <div class="mt-3">
+                    {{ $admins->links() }}
+                </div>
             </div>
         </div>
     </div>
