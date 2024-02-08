@@ -14,28 +14,28 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         Category::create([
-            'name' => 'City Exploration',
-            'description' => 'Explore urban centers and cultural landmarks',
+            'name' => 'Cultural Excursion',
+            'description' => 'Immerse yourself in the rich traditions and heritage of the region through guided tours, performances, and visits to historical sites.',
         ]);
 
         Category::create([
-            'name' => 'Nature Adventure',
-            'description' => 'Discover natural landscapes and outdoor activities',
+            'name' => 'Wildlife Adventure',
+            'description' => "Embark on thrilling wildlife encounters and eco-tours, exploring the diverse flora and fauna unique to each region's natural landscapes.",
         ]);
 
         Category::create([
-            'name' => 'Cultural Heritage',
-            'description' => 'Immerse in local history and traditions',
+            'name' => 'Jungle Trekking',
+            'description' => 'Unleash your adventurous spirit with jungle treks, discovering hidden waterfalls, ancient temples, and breathtaking scenic viewpoints.',
         ]);
 
         Category::create([
-            'name' => 'Relaxation & Leisure',
-            'description' => 'Unwind in scenic locations with leisurely activities',
+            'name' => 'Marine Discovery',
+            'description' => 'Dive into the vibrant underwater world with snorkeling, scuba diving, and boat tours, exploring the diverse marine life and coral reefs.',
         ]);
 
         Category::create([
-            'name' => 'Thrilling Expeditions',
-            'description' => 'Embark on adventurous and adrenaline-pumping experiences',
+            'name' => 'Wellness Retreat',
+            'description' => 'Indulge in relaxation and rejuvenation amidst stunning landscapes, with wellness activities, spa treatments, and serene natural surroundings.',
         ]);
     }
 }
