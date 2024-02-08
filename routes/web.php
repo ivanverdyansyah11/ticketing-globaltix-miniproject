@@ -171,6 +171,9 @@ Route::middleware(['auth'])->group(function() {
     Route::controller(TransactionController::class)->group(function() {
         Route::get('/report', 'index')->name('report');
         Route::get('/report/detail/{id}', 'detail')->name('report.detail');
+        Route::get('/transaction/getTickets/{id}', 'getTickets');
+        Route::get('/transaction/getTicket/{id}/{checkout_date}', 'getTicket');
+        Route::get('/transaction/getCoupon/{coupon_code}', 'getCoupon');
         Route::get('/transaction/add', 'create')->name('transaction.create');
         Route::post('/transaction/add', 'store')->name('transaction.store');
     });
