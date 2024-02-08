@@ -9,7 +9,11 @@ class Language extends Model
 {
     protected $guarded = ['id'];
 
-    // public function tourguide() {
-    //     return $this->belongsTo(TourGuide::class, 'id');
-    // }
+    public function tourguide() {
+        return $this->belongsTo(TourGuide::class, 'id');
+    }
+
+    public function region() {
+        return $this->belongsTo(Region::class, 'id');
+    }
 }
