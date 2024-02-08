@@ -24,7 +24,7 @@ class TourGuideSeeder extends Seeder
 
         TourGuide::create([
             'users_id' => 5,
-            'languages_id' => '1',
+            'languages_id' => '2,3',
             'name' => 'Devina Putri',
             'phone_number' => '088765756756',
             'date_of_birth' => '2006-08-28',
@@ -33,7 +33,7 @@ class TourGuideSeeder extends Seeder
 
         TourGuide::create([
             'users_id' => 6,
-            'languages_id' => '2,3',
+            'languages_id' => '1,4',
             'name' => 'Putra Hasan',
             'phone_number' => '0898756y56756',
             'date_of_birth' => '2002-11-12',
