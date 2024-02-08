@@ -65,7 +65,7 @@
                                         @endif
                                     @endforeach
                                     <td class="border-bottom-0">
-                                        <h6 class="mb-0 fw-normal">{{ $facilityName }}</h6>
+                                        <h6 class="mb-0 fw-normal">{{ Str::limit($facilityName, '60') }}</h6>
                                     </td>
                                     <td class="border-bottom-0" style="width:180px !important;">
                                         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#detailModal" data-id="{{ $tourist_site_facility->id }}">
@@ -88,14 +88,10 @@
                             @endforeach
                         @endif
                     </tbody>
-                    {{-- <tbody>
-                        <tr>
-                            <td class="border-bottom-0 bg-danger">
-                                {{ $tourist_site_facilities->links() }}
-                            </td>
-                        </tr>
-                    </tbody> --}}
                 </table>
+                <div class="mt-3">
+                    {{ $tourist_site_facilities->links() }}
+                </div>
             </div>
         </div>
     </div>
