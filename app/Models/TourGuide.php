@@ -13,7 +13,11 @@ class TourGuide extends Model
         return $this->belongsTo(User::class, 'users_id');
     }
 
-    // public function language($id) {
-    //     return Language::whereIn('id', [$id])->get();
-    // }
+    public function languages() {
+        return $this->hasMany(Language::class, 'languages_id');
+    }
+
+    public function transaction() {
+        return $this->belongsTo(Transaction::class, 'transactions_id');
+    }
 }
