@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRegionRequest;
 use App\Http\Requests\UpdateRegionRequest;
+use App\Models\Language;
 use App\Models\Region;
 use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
@@ -14,16 +15,18 @@ class RegionController extends Controller
     public function index() : View {
         return view('region.index', [
             'title' => 'Region Page',
-            'regions' => Region::orderBy('created_at', 'DESC')->paginate(10),
+            'regions' => Region::with(['language'])->orderBy('created_at', 'DESC')->paginate(10),
+            'languages' => Language::all(),
         ]);
     }
 
     public function detail($id) : JsonResponse {
-        $region = Region::where('id', $id)->first();
+        $region = Region::with(['language'])->where('id', $id)->first();
+        $languages = Language::all();
         try {
             return response()->json([
                 'status' => 'success',
-                'data' => $region,
+                'data' => [$region, $languages],
             ]);
         } catch (\Throwable $th) {
             return response()->json([
