@@ -20,4 +20,8 @@ class TouristSiteFacility extends Model
     public function ticket() {
         return $this->belongsTo(Ticket::class, 'id');
     }
+
+    public function transaction() {
+        return $this->belongsTo(Transaction::class, 'transactions_id');
+    }
 }
