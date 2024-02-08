@@ -7,18 +7,16 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegionCategoryController;
 use App\Http\Controllers\RegionController;
-use App\Http\Controllers\ResellerController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TicketCategoryController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TourGuideController;
 use App\Http\Controllers\TouristSiteController;
 use App\Http\Controllers\TouristSiteFacilityController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
-use App\Models\RegionCategory;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -168,5 +166,12 @@ Route::middleware(['auth'])->group(function() {
         Route::post('/coupon/add', 'store')->name('coupon.store');
         Route::post('/coupon/edit/{id}', 'update')->name('coupon.update');
         Route::post('/coupon/delete/{id}', 'delete')->name('coupon.delete');
+    });
+
+    Route::controller(TransactionController::class)->group(function() {
+        Route::get('/report', 'index')->name('report');
+        Route::get('/report/detail/{id}', 'detail')->name('report.detail');
+        Route::get('/transaction/add', 'create')->name('transaction.create');
+        Route::post('/transaction/add', 'store')->name('transaction.store');
     });
 });
