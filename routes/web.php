@@ -6,6 +6,7 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FacilityController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegionCategoryController;
 use App\Http\Controllers\RegionController;
@@ -87,6 +88,14 @@ Route::middleware(['auth'])->group(function() {
         Route::get('/customer/edit/{id}', 'edit')->name('customer.edit');
         Route::post('/customer/edit/{id}', 'update')->name('customer.update');
         Route::post('/customer/delete/{id}', 'delete')->name('customer.delete');
+    });
+
+    Route::controller(LanguageController::class)->group(function() {
+        Route::get('/language', 'index')->name('language');
+        Route::get('/language/detail/{id}', 'detail')->name('language.detail');
+        Route::post('/language/add', 'store')->name('language.store');
+        Route::post('/language/edit/{id}', 'update')->name('language.update');
+        Route::post('/language/delete/{id}', 'delete')->name('language.delete');
     });
 
     Route::controller(RegionController::class)->group(function() {
