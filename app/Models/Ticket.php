@@ -16,4 +16,8 @@ class Ticket extends Model
     public function category() {
         return $this->belongsTo(TicketCategory::class, 'ticket_categories_id');
     }
+
+    public function transaction() {
+        return $this->belongsTo(Transaction::class, 'transactions_id');
+    }
 }
