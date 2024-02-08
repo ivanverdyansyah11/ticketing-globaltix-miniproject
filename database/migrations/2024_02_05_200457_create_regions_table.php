@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('regions', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('languages_id')->index();
             $table->string('name', 255);
             $table->text('description');
             $table->timestamps();
