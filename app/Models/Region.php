@@ -12,4 +12,8 @@ class Region extends Model
     public function regionCategory() {
         return $this->belongsTo(RegionCategory::class, 'id');
     }
+
+    public function language() {
+        return $this->belongsTo(Language::class, 'languages_id');
+    }
 }
