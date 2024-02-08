@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FacilityController;
@@ -10,6 +11,8 @@ use App\Http\Controllers\RegionCategoryController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ResellerController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\TicketCategoryController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TourGuideController;
 use App\Http\Controllers\TouristSiteController;
 use App\Http\Controllers\TouristSiteFacilityController;
@@ -132,5 +135,29 @@ Route::middleware(['auth'])->group(function() {
         Route::post('/toursitefacility/add', 'store')->name('toursitefacility.store');
         Route::post('/toursitefacility/edit/{id}', 'update')->name('toursitefacility.update');
         Route::post('/toursitefacility/delete/{id}', 'delete')->name('toursitefacility.delete');
+    });
+
+    Route::controller(TicketCategoryController::class)->group(function() {
+        Route::get('/ticketcategory', 'index')->name('ticketcategory');
+        Route::get('/ticketcategory/detail/{id}', 'detail')->name('ticketcategory.detail');
+        Route::post('/ticketcategory/add', 'store')->name('ticketcategory.store');
+        Route::post('/ticketcategory/edit/{id}', 'update')->name('ticketcategory.update');
+        Route::post('/ticketcategory/delete/{id}', 'delete')->name('ticketcategory.delete');
+    });
+
+    Route::controller(TicketController::class)->group(function() {
+        Route::get('/ticket', 'index')->name('ticket');
+        Route::get('/ticket/detail/{id}', 'detail')->name('ticket.detail');
+        Route::post('/ticket/add', 'store')->name('ticket.store');
+        Route::post('/ticket/edit/{id}', 'update')->name('ticket.update');
+        Route::post('/ticket/delete/{id}', 'delete')->name('ticket.delete');
+    });
+
+    Route::controller(CouponController::class)->group(function() {
+        Route::get('/coupon', 'index')->name('coupon');
+        Route::get('/coupon/detail/{id}', 'detail')->name('coupon.detail');
+        Route::post('/coupon/add', 'store')->name('coupon.store');
+        Route::post('/coupon/edit/{id}', 'update')->name('coupon.update');
+        Route::post('/coupon/delete/{id}', 'delete')->name('coupon.delete');
     });
 });
