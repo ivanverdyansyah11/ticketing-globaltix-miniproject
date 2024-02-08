@@ -16,4 +16,8 @@ class TouristSiteFacility extends Model
     public function facility() {
         return $this->belongsTo(Facility::class, 'facilities_id');
     }
+
+    public function ticket() {
+        return $this->belongsTo(Ticket::class, 'id');
+    }
 }
