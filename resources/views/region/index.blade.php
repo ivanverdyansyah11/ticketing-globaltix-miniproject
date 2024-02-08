@@ -31,6 +31,9 @@
                                 <h6 class="fw-semibold mb-0">Name</h6>
                             </th>
                             <th class="border-bottom-0">
+                                <h6 class="fw-semibold mb-0">Language Used</h6>
+                            </th>
+                            <th class="border-bottom-0">
                                 <h6 class="fw-semibold mb-0">Description</h6>
                             </th>
                             <th class="border-bottom-0" style="width:180px !important;">
@@ -51,6 +54,9 @@
                                     </td>
                                     <td class="border-bottom-0">
                                         <h6 class="mb-0 fw-normal">{{ $region->name }}</h6>
+                                    </td>
+                                    <td class="border-bottom-0">
+                                        <h6 class="mb-0 fw-normal">{{ $region->language->name }}</h6>
                                     </td>
                                     <td class="border-bottom-0">
                                         <p class="mb-0 fw-normal">{{ Str::limit($region->description, '60') }}</p>
@@ -95,8 +101,9 @@
                 url: '/region/detail/' + id,
                 success: function(region) {
                     if (region.status == 'success') {
-                        $('[data-value="name"]').val(region.data.name);
-                        $('[data-value="description"]').html(region.data.description);
+                        $('[data-value="name"]').val(region.data[0].name);
+                        $('[data-value="languages_id"]').val(region.data[0].language.name);
+                        $('[data-value="description"]').html(region.data[0].description);
                     }
                 }
             });
@@ -104,14 +111,27 @@
 
         $(document).on('click', '[data-bs-target="#editModal"]', function() {
             let id = $(this).data('id');
+            $('[data-element="row-edit-select"] option').remove();
             $('#buttonEditRegion').attr('action', '/region/edit/' + id);
             $.ajax({
                 type: 'get',
                 url: '/region/detail/' + id,
                 success: function(region) {
                     if (region.status == 'success') {
-                        $('[data-value="name"]').val(region.data.name);
-                        $('[data-value="description"]').html(region.data.description);
+                        region.data[1].forEach(language => {
+                            if (language.id === region.data[0].languages_id) {
+                                $('[data-element="row-edit-select"]').append(
+                                    `<option value="${language.id}" selected>${language.name}</option>`
+                                );
+                            } else {
+                                $('[data-element="row-edit-select"]').append(
+                                    `<option value="${language.id}">${language.name}</option>`
+                                );
+                            }
+                        });
+
+                        $('[data-value="name"]').val(region.data[0].name);
+                        $('[data-value="description"]').html(region.data[0].description);
                     }
                 }
             });
