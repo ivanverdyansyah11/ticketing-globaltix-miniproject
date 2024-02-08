@@ -14,15 +14,19 @@ class LanguageSeeder extends Seeder
     public function run(): void
     {
         Language::create([
-            'name' => 'Indonesian',
+            'name' => 'Balinese',
         ]);
 
         Language::create([
-            'name' => 'England',
+            'name' => 'Bahasa Java',
         ]);
 
         Language::create([
-            'name' => 'Swiss',
+            'name' => 'Bahasa Komodo',
+        ]);
+
+        Language::create([
+            'name' => 'Bahasa Papua',
         ]);
     }
 }
