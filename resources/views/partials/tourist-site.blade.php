@@ -103,10 +103,20 @@
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input name="name" type="text" class="form-control" id="name" data-value="name">
+                        @error('name')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
                     </div>
                     <div class="mb-0">
                         <label for="description" class="form-label">Description</label>
                         <textarea name="description" class="form-control" id="description" rows="4" data-value="description"></textarea>
+                        @error('description')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="modal-footer">
