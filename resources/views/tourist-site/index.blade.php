@@ -28,10 +28,10 @@
                                 <h6 class="fw-semibold mb-0">#</h6>
                             </th>
                             <th class="border-bottom-0">
-                                <h6 class="fw-semibold mb-0">Name</h6>
+                                <h6 class="fw-semibold mb-0">Region</h6>
                             </th>
                             <th class="border-bottom-0">
-                                <h6 class="fw-semibold mb-0">Region</h6>
+                                <h6 class="fw-semibold mb-0">Name</h6>
                             </th>
                             <th class="border-bottom-0">
                                 <h6 class="fw-semibold mb-0">Description</h6>
@@ -59,7 +59,7 @@
                                         <h6 class="mb-0 fw-normal">{{ $tourist_site->name }}</h6>
                                     </td>
                                     <td class="border-bottom-0">
-                                        <p class="mb-0 fw-normal">{{ $tourist_site->description }}</p>
+                                        <p class="mb-0 fw-normal">{{ Str::limit($tourist_site->description, '60') }}</p>
                                     </td>
                                     <td class="border-bottom-0" style="width:180px !important;">
                                         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#detailModal" data-id="{{ $tourist_site->id }}">
@@ -82,14 +82,10 @@
                             @endforeach
                         @endif
                     </tbody>
-                    {{-- <tbody>
-                        <tr>
-                            <td class="border-bottom-0 bg-danger">
-                                {{ $tourist_sites->links() }}
-                            </td>
-                        </tr>
-                    </tbody> --}}
                 </table>
+                <div class="mt-3">
+                    {{ $tourist_sites->links() }}
+                </div>
             </div>
         </div>
     </div>
