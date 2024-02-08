@@ -17,6 +17,20 @@
                             </div>
                         @enderror
                     </div>
+                    <div class="mb-3">
+                        <label for="languages_id" class="form-label">Language Used</label>
+                        <select required name="languages_id" class="form-control @error('languages_id') is-invalid @enderror" id="languages_id">
+                            <option value="-">Choose language</option>
+                            @foreach ($languages as $language)
+                                <option value="{{ $language->id }}">{{ $language->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('languages_id')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
                     <div class="mb-0">
                         <label for="description" class="form-label">Description</label>
                         <textarea required name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="4"></textarea>
@@ -49,6 +63,10 @@
                         <label for="name" class="form-label">Name</label>
                         <input readonly name="name" type="text" class="form-control" id="name" data-value="name">
                     </div>
+                    <div class="mb-3">
+                        <label for="languages_id" class="form-label">Language Used</label>
+                        <input readonly name="languages_id" type="text" class="form-control" id="languages_id" data-value="languages_id">
+                    </div>
                     <div class="mb-0">
                         <label for="description" class="form-label">Description</label>
                         <textarea readonly name="description" class="form-control" id="description" rows="4" data-value="description"></textarea>
@@ -75,10 +93,30 @@
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input name="name" type="text" class="form-control" id="name" data-value="name">
+                        @error('name')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="languages_id" class="form-label">Language Used</label>
+                        <select required name="languages_id" class="form-control @error('languages_id') is-invalid @enderror" id="languages_id" data-element="row-edit-select">
+                        </select>
+                        @error('languages_id')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
                     </div>
                     <div class="mb-0">
                         <label for="description" class="form-label">Description</label>
                         <textarea name="description" class="form-control" id="description" rows="4" data-value="description"></textarea>
+                        @error('description')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="modal-footer">
