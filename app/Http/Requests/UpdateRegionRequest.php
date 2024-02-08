@@ -22,6 +22,7 @@ class UpdateRegionRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'languages_id' => 'required|integer',
             'name' => 'required|string|max:255',
             'description' => 'required',
         ];
