@@ -7,6 +7,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegionCategoryController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\StaffController;
@@ -30,6 +31,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::fallback(function() {
+    return redirect('/');
+});
+
 Route::redirect('/', '/login');
 
 Route::middleware(['guest'])->group(function() {
@@ -43,10 +48,15 @@ Route::middleware(['auth'])->group(function() {
     Route::controller(UserController::class)->group(function() {
         Route::post('/logout', 'logout')->name('logout');
     });
-
+    
+    Route::controller(ProfileController::class)->group(function() {
+        Route::post('/profile', 'index')->name('profile');
+    });
+    
     Route::controller(DashboardController::class)->group(function() {
         Route::get('/dashboard', 'index')->name('dashboard');
     });
+
 
     Route::controller(AdminController::class)->group(function() {
         Route::get('/admin', 'index')->name('admin');
@@ -56,8 +66,8 @@ Route::middleware(['auth'])->group(function() {
         Route::get('/admin/edit/{id}', 'edit')->name('admin.edit');
         Route::post('/admin/edit/{id}', 'update')->name('admin.update');
         Route::post('/admin/delete/{id}', 'delete')->name('admin.delete');
-    });
-
+    })->middleware('isAdmin');
+    
     Route::controller(StaffController::class)->group(function() {
         Route::get('/staff', 'index')->name('staff');
         Route::get('/staff/detail/{id}', 'detail')->name('staff.detail');
@@ -66,8 +76,8 @@ Route::middleware(['auth'])->group(function() {
         Route::get('/staff/edit/{id}', 'edit')->name('staff.edit');
         Route::post('/staff/edit/{id}', 'update')->name('staff.update');
         Route::post('/staff/delete/{id}', 'delete')->name('staff.delete');
-    });
-
+    })->middleware('isAdmin');
+    
     Route::controller(TourGuideController::class)->group(function() {
         Route::get('/tourguide', 'index')->name('tourguide');
         Route::get('/tourguide/detail/{id}', 'detail')->name('tourguide.detail');
@@ -76,8 +86,8 @@ Route::middleware(['auth'])->group(function() {
         Route::get('/tourguide/edit/{id}', 'edit')->name('tourguide.edit');
         Route::post('/tourguide/edit/{id}', 'update')->name('tourguide.update');
         Route::post('/tourguide/delete/{id}', 'delete')->name('tourguide.delete');
-    });
-
+    })->middleware('isAdmin');
+    
     Route::controller(CustomerController::class)->group(function() {
         Route::get('/customer', 'index')->name('customer');
         Route::get('/customer/detail/{id}', 'detail')->name('customer.detail');
@@ -86,39 +96,39 @@ Route::middleware(['auth'])->group(function() {
         Route::get('/customer/edit/{id}', 'edit')->name('customer.edit');
         Route::post('/customer/edit/{id}', 'update')->name('customer.update');
         Route::post('/customer/delete/{id}', 'delete')->name('customer.delete');
-    });
-
+    })->middleware('isAdmin');
+    
     Route::controller(LanguageController::class)->group(function() {
         Route::get('/language', 'index')->name('language');
         Route::get('/language/detail/{id}', 'detail')->name('language.detail');
         Route::post('/language/add', 'store')->name('language.store');
         Route::post('/language/edit/{id}', 'update')->name('language.update');
         Route::post('/language/delete/{id}', 'delete')->name('language.delete');
-    });
-
+    })->middleware(['isAdmin', 'isStaff']);
+    
     Route::controller(RegionController::class)->group(function() {
         Route::get('/region', 'index')->name('region');
         Route::get('/region/detail/{id}', 'detail')->name('region.detail');
         Route::post('/region/add', 'store')->name('region.store');
         Route::post('/region/edit/{id}', 'update')->name('region.update');
         Route::post('/region/delete/{id}', 'delete')->name('region.delete');
-    });
-
+    })->middleware(['isAdmin', 'isStaff']);
+    
     Route::controller(CategoryController::class)->group(function() {
         Route::get('/category', 'index')->name('category');
         Route::get('/category/detail/{id}', 'detail')->name('category.detail');
         Route::post('/category/add', 'store')->name('category.store');
         Route::post('/category/edit/{id}', 'update')->name('category.update');
         Route::post('/category/delete/{id}', 'delete')->name('category.delete');
-    });
-
+    })->middleware(['isAdmin', 'isStaff']);
+    
     Route::controller(RegionCategoryController::class)->group(function() {
         Route::get('/regioncategory', 'index')->name('region_category');
         Route::get('/regioncategory/detail/{id}', 'detail')->name('region_category.detail');
         Route::post('/regioncategory/add', 'store')->name('region_category.store');
         Route::post('/regioncategory/edit/{id}', 'update')->name('region_category.update');
         Route::post('/regioncategory/delete/{id}', 'delete')->name('region_category.delete');
-    });
+    })->middleware(['isAdmin', 'isStaff']);
 
     Route::controller(FacilityController::class)->group(function() {
         Route::get('/facility', 'index')->name('facility');
@@ -126,7 +136,7 @@ Route::middleware(['auth'])->group(function() {
         Route::post('/facility/add', 'store')->name('facility.store');
         Route::post('/facility/edit/{id}', 'update')->name('facility.update');
         Route::post('/facility/delete/{id}', 'delete')->name('facility.delete');
-    });
+    })->middleware(['isAdmin', 'isStaff']);
 
     Route::controller(TouristSiteController::class)->group(function() {
         Route::get('/toursite', 'index')->name('toursite');
@@ -134,7 +144,7 @@ Route::middleware(['auth'])->group(function() {
         Route::post('/toursite/add', 'store')->name('toursite.store');
         Route::post('/toursite/edit/{id}', 'update')->name('toursite.update');
         Route::post('/toursite/delete/{id}', 'delete')->name('toursite.delete');
-    });
+    })->middleware(['isAdmin', 'isStaff']);
 
     Route::controller(TouristSiteFacilityController::class)->group(function() {
         Route::get('/toursitefacility', 'index')->name('toursitefacility');
@@ -142,7 +152,7 @@ Route::middleware(['auth'])->group(function() {
         Route::post('/toursitefacility/add', 'store')->name('toursitefacility.store');
         Route::post('/toursitefacility/edit/{id}', 'update')->name('toursitefacility.update');
         Route::post('/toursitefacility/delete/{id}', 'delete')->name('toursitefacility.delete');
-    });
+    })->middleware(['isAdmin', 'isStaff']);
 
     Route::controller(TicketCategoryController::class)->group(function() {
         Route::get('/ticketcategory', 'index')->name('ticketcategory');
@@ -150,7 +160,7 @@ Route::middleware(['auth'])->group(function() {
         Route::post('/ticketcategory/add', 'store')->name('ticketcategory.store');
         Route::post('/ticketcategory/edit/{id}', 'update')->name('ticketcategory.update');
         Route::post('/ticketcategory/delete/{id}', 'delete')->name('ticketcategory.delete');
-    });
+    })->middleware(['isAdmin', 'isStaff']);
 
     Route::controller(TicketController::class)->group(function() {
         Route::get('/ticket', 'index')->name('ticket');
@@ -158,7 +168,7 @@ Route::middleware(['auth'])->group(function() {
         Route::post('/ticket/add', 'store')->name('ticket.store');
         Route::post('/ticket/edit/{id}', 'update')->name('ticket.update');
         Route::post('/ticket/delete/{id}', 'delete')->name('ticket.delete');
-    });
+    })->middleware(['isAdmin', 'isStaff']);
 
     Route::controller(CouponController::class)->group(function() {
         Route::get('/coupon', 'index')->name('coupon');
@@ -166,15 +176,16 @@ Route::middleware(['auth'])->group(function() {
         Route::post('/coupon/add', 'store')->name('coupon.store');
         Route::post('/coupon/edit/{id}', 'update')->name('coupon.update');
         Route::post('/coupon/delete/{id}', 'delete')->name('coupon.delete');
-    });
+    })->middleware(['isAdmin', 'isStaff']);
 
+    
     Route::controller(TransactionController::class)->group(function() {
         Route::get('/report', 'index')->name('report');
         Route::get('/report/detail/{id}', 'detail')->name('report.detail');
-        Route::get('/transaction/getTickets/{id}', 'getTickets');
-        Route::get('/transaction/getTicket/{id}/{checkout_date}', 'getTicket');
-        Route::get('/transaction/getCoupon/{coupon_code}', 'getCoupon');
-        Route::get('/transaction/add', 'create')->name('transaction.create');
-        Route::post('/transaction/add', 'store')->name('transaction.store');
+        Route::get('/transaction/getTickets/{id}', 'getTickets')->middleware(['isAdmin', 'isStaff', 'isCustomer']);
+        Route::get('/transaction/getTicket/{id}/{checkout_date}', 'getTicket')->middleware(['isAdmin', 'isStaff', 'isCustomer']);
+        Route::get('/transaction/getCoupon/{coupon_code}', 'getCoupon')->middleware(['isAdmin', 'isStaff', 'isCustomer']);
+        Route::get('/transaction/add', 'create')->name('transaction.create')->middleware(['isAdmin', 'isStaff', 'isCustomer']);
+        Route::post('/transaction/add', 'store')->name('transaction.store')->middleware(['isAdmin', 'isStaff', 'isCustomer']);
     });
 });
