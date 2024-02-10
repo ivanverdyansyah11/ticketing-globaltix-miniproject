@@ -167,6 +167,7 @@
                 type: 'get',
                 url: '/transaction/getTickets/' + id,
                 success: function(tickets) {
+                console.log(tickets.language);
                   if (tickets.status == 'success') {
                     $('#quantity').append(
                         `<option value="-">Select checkout data & choose ticket first!</option>`
