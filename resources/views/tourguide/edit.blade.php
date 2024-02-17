@@ -86,10 +86,22 @@
                     </div>
                   @enderror
               </div>
-              <div class="mb-4">
+              <div class="mb-3">
                   <label for="place_of_birth" class="form-label">Place Of Birth</label>
                   <input required name="place_of_birth" type="text" class="form-control @error('place_of_birth') is-invalid @enderror" id="place_of_birth" value="{{ $tourguide->place_of_birth }}">
                   @error('place_of_birth')
+                    <div class="invalid-feedback">
+                      {{ $message }}
+                    </div>
+                  @enderror
+              </div>
+              <div class="mb-4">
+                  <label for="status" class="form-label">Status</label>
+                  <select required name="status" class="form-control @error('status') is-invalid @enderror" id="status">
+                    <option {{ $tourguide->status == 1 ? 'selected' : '' }} value="1">Active</option>
+                    <option {{ $tourguide->status == 0 ? 'selected' : '' }} value="0">Non Active</option>
+                  </select>
+                  @error('status')
                     <div class="invalid-feedback">
                       {{ $message }}
                     </div>

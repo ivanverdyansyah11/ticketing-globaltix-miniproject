@@ -11,13 +11,13 @@
                 <div class="mb-3">
                   <label for="proof_of_payment" class="form-label mb-3">Proof Of Payment</label>
                   <br>
-                  @if (file_exists(public_path('assets/images/profile/' . $transaction->proof_of_payment)))
+                  @if (file_exists(public_path('assets/images/transaction/' . $transaction->proof_of_payment)))
                     <img src="{{ asset('assets/images/transaction/' . $transaction->proof_of_payment) }}" alt="Profile Transaction" class="img-preview" width="100" height="100" style="object-fit: cover; border-radius: 9999px;">
                   @else
                   <img src="{{ asset('assets/images/transaction/img-not-found.jpg') }}" alt="Profile Transaction" class="img-preview" width="100" height="100" style="object-fit: cover; border-radius: 9999px;">
                   @endif
                 </div>
-                @if ($transaction->staff->name)
+                @if ($transaction->staffs_id != null)
                   <div class="mb-3">
                     <label for="staffs_id" class="form-label">Staff</label>
                     <input readonly type="text" name="staffs_id" class="form-control" id="staffs_id" value="{{ $transaction->staff->name }}">
@@ -25,9 +25,9 @@
                 @endif
                 <div class="mb-3">
                   <label for="customers_id" class="form-label">Customer</label>
-                  <input readonly type="text" name="customers_id" class="form-control" id="customers_id" value="{{ $transaction->staff->name }}">
+                  <input readonly type="text" name="customers_id" class="form-control" id="customers_id" value="{{ $transaction->customer->name }}">
                 </div>
-                @if ($transaction->tourguide->name)
+                @if ($transaction->tour_guides_id != null)
                   <div class="mb-3">
                     <label for="tour_guides_id" class="form-label">Tour Guide</label>
                     <input readonly type="text" name="tour_guides_id" class="form-control" id="tour_guides_id" value="{{ $transaction->tourguide->name }}">
@@ -51,7 +51,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="coupons_id" class="form-label">Coupon</label>
-                  <input readonly type="text" name="coupons_id" class="form-control" id="coupons_id" value="{{ $transaction->coupon->coupon_code }}">
+                  <input readonly type="text" name="coupons_id" class="form-control" id="coupons_id" value="{{ $transaction->coupons_id != null ? $transaction->coupon->coupon_code : '' }}">
                 </div>
                 <div class="mb-3">
                   <label for="total_price" class="form-label">Total Price</label>

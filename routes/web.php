@@ -7,7 +7,10 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\ProfileAdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfileCustomerController;
+use App\Http\Controllers\ProfileStaffController;
 use App\Http\Controllers\RegionCategoryController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\StaffController;
@@ -41,16 +44,14 @@ Route::middleware(['guest'])->group(function() {
     Route::controller(UserController::class)->group(function() {
         Route::get('/login', 'login')->name('login');
         Route::post('/login', 'authenticate')->name('login.authenticate');
+        Route::get('/register', 'register')->name('register');
+        Route::post('/register', 'store')->name('register.store');
     });
 });
 
 Route::middleware(['auth'])->group(function() {
     Route::controller(UserController::class)->group(function() {
         Route::post('/logout', 'logout')->name('logout');
-    });
-    
-    Route::controller(ProfileController::class)->group(function() {
-        Route::post('/profile', 'index')->name('profile');
     });
     
     Route::controller(DashboardController::class)->group(function() {
@@ -177,15 +178,32 @@ Route::middleware(['auth'])->group(function() {
         Route::post('/coupon/edit/{id}', 'update')->name('coupon.update');
         Route::post('/coupon/delete/{id}', 'delete')->name('coupon.delete');
     })->middleware(['isAdmin', 'isStaff']);
-
     
     Route::controller(TransactionController::class)->group(function() {
         Route::get('/report', 'index')->name('report');
         Route::get('/report/detail/{id}', 'detail')->name('report.detail');
-        Route::get('/transaction/getTickets/{id}', 'getTickets')->middleware(['isAdmin', 'isStaff', 'isCustomer']);
-        Route::get('/transaction/getTicket/{id}/{checkout_date}', 'getTicket')->middleware(['isAdmin', 'isStaff', 'isCustomer']);
-        Route::get('/transaction/getCoupon/{coupon_code}', 'getCoupon')->middleware(['isAdmin', 'isStaff', 'isCustomer']);
-        Route::get('/transaction/add', 'create')->name('transaction.create')->middleware(['isAdmin', 'isStaff', 'isCustomer']);
-        Route::post('/transaction/add', 'store')->name('transaction.store')->middleware(['isAdmin', 'isStaff', 'isCustomer']);
+        Route::get('/transaction/getTickets/{id}', 'getTickets');
+        Route::get('/transaction/getTicket/{id}/{checkout_date}', 'getTicket');
+        Route::get('/transaction/getCoupon/{coupon_code}', 'getCoupon');
+        Route::get('/transaction/add', 'create')->name('transaction.create');
+        Route::post('/transaction/add', 'store')->name('transaction.store');
+    });
+
+    Route::controller(ProfileAdminController::class)->group(function() {
+        Route::get('/profile', 'index')->name('profile')->middleware(['isAdmin']);
+        Route::get('/profile/edit', 'edit')->name('profile.edit')->middleware(['isAdmin']);
+        Route::post('/profile/edit', 'update')->name('profile.update')->middleware(['isAdmin']);
+    });
+
+    Route::controller(ProfileStaffController::class)->group(function() {
+        Route::get('/profile', 'index')->name('profile')->middleware(['isStaff']);
+        Route::get('/profile/edit', 'edit')->name('profile.edit')->middleware(['isStaff']);
+        Route::post('/profile/edit', 'update')->name('profile.update')->middleware(['isStaff']);
+    });
+
+    Route::controller(ProfileCustomerController::class)->group(function() {
+        Route::get('/profile', 'index')->name('profile')->middleware(['isCustomer']);
+        Route::get('/profile/edit', 'edit')->name('profile.edit')->middleware(['isCustomer']);
+        Route::post('/profile/edit', 'update')->name('profile.update')->middleware(['isCustomer']);
     });
 });

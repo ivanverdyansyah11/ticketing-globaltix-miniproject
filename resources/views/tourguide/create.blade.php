@@ -14,6 +14,7 @@
           <div class="card-body px-3 px-md-4">
             <form action="{{ route('tourguide.create') }}" method="POST" enctype="multipart/form-data">
               @csrf
+              <input type="hidden" value="1" name="status">
               <div class="mb-3">
                 <label for="image" class="form-label mb-3">Image Tour Guide</label>
                 <br>

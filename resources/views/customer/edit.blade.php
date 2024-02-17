@@ -69,7 +69,7 @@
                     </div>
                   @enderror
               </div>
-              <div class="mb-4">
+              <div class="mb-3">
                   <label for="address" class="form-label">Address</label>
                   <textarea required name="address" class="form-control @error('address') is-invalid @enderror" id="address" rows="4">{{ $customer->address }}</textarea>
                   @error('address')
@@ -77,6 +77,18 @@
                       {{ $message }}
                     </div>
                   @enderror
+              </div>
+              <div class="mb-4">
+                <label for="status" class="form-label">Status</label>
+                <select required name="status" class="form-control @error('status') is-invalid @enderror" id="status">
+                  <option {{ $customer->status == 1 ? 'selected' : '' }} value="1">Active</option>
+                  <option {{ $customer->status == 0 ? 'selected' : '' }} value="0">Non Active</option>
+                </select>
+                @error('status')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
               </div>
               <div class="wrapper d-flex gap-2">
                 <button type="submit" class="btn btn-primary">Save Changes</button>

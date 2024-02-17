@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('tour_guides', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('users_id')->index();
-            $table->string('languages_id')->index();
+            $table->string('languages_id')->index()->nullable();
             $table->string('name', 255);
             $table->string('phone_number', 13);
             $table->date('date_of_birth');
             $table->string('place_of_birth');
+            $table->integer('status');
             $table->timestamps();
         });
     }

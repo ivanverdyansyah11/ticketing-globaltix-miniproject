@@ -20,6 +20,7 @@ class CustomerSeeder extends Seeder
             'date_of_birth' => '2003-04-23',
             'place_of_birth' => 'Gilimanuk',
             'address' => 'Jl. Ahmad Yani',
+            'status' => 1,
         ]);
 
         Customer::create([
@@ -29,6 +30,7 @@ class CustomerSeeder extends Seeder
             'date_of_birth' => '2001-07-15',
             'place_of_birth' => 'Negara',
             'address' => 'Jl. Monang Maning',
+            'status' => 1,
         ]);
 
         Customer::create([
@@ -38,6 +40,7 @@ class CustomerSeeder extends Seeder
             'date_of_birth' => '2001-10-12',
             'place_of_birth' => 'Denpasar',
             'address' => 'Jl. Dalung Permai',
+            'status' => 1,
         ]);
     }
 }

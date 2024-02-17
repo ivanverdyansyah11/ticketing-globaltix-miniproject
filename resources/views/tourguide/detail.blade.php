@@ -54,9 +54,13 @@
                     <label for="date_of_birth" class="form-label">Date Of Birth</label>
                     <input readonly type="text" class="form-control" id="date_of_birth" value="{{ $tourguide->date_of_birth }}">
                 </div>
-                <div class="mb-4">
+                <div class="mb-3">
                     <label for="place_of_birth" class="form-label">Place Of Birth</label>
                     <input readonly type="text" class="form-control" id="place_of_birth" value="{{ $tourguide->place_of_birth }}">
+                </div>
+                <div class="mb-4">
+                    <label for="status" class="form-label">Status</label>
+                    <input readonly type="text" class="form-control text-capitalize" id="status" value="{{ $tourguide->status == 1 ? 'active' : 'no active' }}">
                 </div>
                 <div class="wrapper d-flex gap-2">
                     <a href="{{ route('tourguide') }}" class="btn btn-dark">Back to Tour Guide Page</a>

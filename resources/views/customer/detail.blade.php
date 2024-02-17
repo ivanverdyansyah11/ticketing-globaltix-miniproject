@@ -37,10 +37,14 @@
                     <label for="place_of_birth" class="form-label">Place Of Birth</label>
                     <input readonly type="text" class="form-control" id="place_of_birth" value="{{ $customer->place_of_birth }}">
                 </div>
-                <div class="mb-4">
+                <div class="mb-3">
                     <label for="address" class="form-label">Address</label>
                     <textarea readonly class="form-control" id="address" rows="4">{{ $customer->address }}</textarea>
                 </div>
+                <div class="mb-4">
+                  <label for="status" class="form-label">Status</label>
+                  <input readonly type="text" class="form-control text-capitalize" id="status" value="{{ $customer->status == 1 ? 'active' : 'no active' }}">
+              </div>
                 <div class="wrapper d-flex gap-2">
                     <a href="{{ route('customer') }}" class="btn btn-dark">Back to Customer Page</a>
                 </div>

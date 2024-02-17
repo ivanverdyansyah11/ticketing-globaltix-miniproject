@@ -25,43 +25,47 @@
                   </div>
                 @enderror
               </div>
-              <div class="mb-3">
-                <label for="staffs_id" class="form-label">Staff</label>
-                <select required name="staffs_id" class="form-control @error('staffs_id') is-invalid @enderror" id="staffs_id">
-                  <option value="-">Choose staff</option>
-                  @foreach ($staffs as $staff)
-                    <option value="{{ $staff->id }}">{{ $staff->name }}</option>
-                  @endforeach
-                </select>
-                @error('staffs_id')
-                  <div class="invalid-feedback">
-                    {{ $message }}
-                  </div>
-                @enderror
-              </div>
+              @if (auth()->user()->role == 'super admin' || auth()->user()->role == 'admin' || auth()->user()->role == 'staff')
+                <div class="mb-3">
+                  <label for="staffs_id" class="form-label">Staff</label>
+                  <select required name="staffs_id" class="form-control @error('staffs_id') is-invalid @enderror" id="staffs_id">
+                    @if (auth()->user()->role == 'staff')
+                      @foreach ($staffs as $staff)
+                        @if ($staff->users_id == auth()->user()->id)
+                          <option value="{{ $staff->id }}">{{ $staff->name }}</option>
+                        @endif
+                      @endforeach
+                    @else
+                      <option value="-">Choose staff</option>
+                      @foreach ($staffs as $staff)
+                        <option value="{{ $staff->id }}">{{ $staff->name }}</option>
+                      @endforeach
+                    @endif
+                  </select>
+                  @error('staffs_id')
+                    <div class="invalid-feedback">
+                      {{ $message }}
+                    </div>
+                  @enderror
+                </div>
+              @endif
               <div class="mb-3">
                 <label for="customers_id" class="form-label">Customer</label>
                 <select required name="customers_id" class="form-control @error('customers_id') is-invalid @enderror" id="customers_id">
-                  <option value="-">Choose customer</option>
-                  @foreach ($customers as $customer)
-                    <option value="{{ $customer->id }}">{{ $customer->name }}</option>
-                  @endforeach
+                  @if (auth()->user()->role == 'customer')
+                    @foreach ($customers as $customer)
+                      @if ($customer->users_id == auth()->user()->id)
+                        <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                      @endif
+                    @endforeach
+                  @else
+                    <option value="-">Choose customer</option>
+                    @foreach ($customers as $customer)
+                      <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                    @endforeach
+                  @endif
                 </select>
                 @error('customers_id')
-                  <div class="invalid-feedback">
-                    {{ $message }}
-                  </div>
-                @enderror
-              </div>
-              <div class="mb-3">
-                <label for="tour_guides_id" class="form-label">Tour Guide</label>
-                <select required name="tour_guides_id" class="form-control @error('tour_guides_id') is-invalid @enderror" id="tour_guides_id">
-                  <option value="-">Choose tourguide</option>
-                  @foreach ($tourguides as $tourguide)
-                    <option value="{{ $tourguide->id }}">{{ $tourguide->name }}</option>
-                  @endforeach
-                </select>
-                @error('tour_guides_id')
                   <div class="invalid-feedback">
                     {{ $message }}
                   </div>
@@ -89,6 +93,17 @@
                       {{ $message }}
                     </div>
                   @enderror
+              </div>
+              <div class="mb-3">
+                <label for="tour_guides_id" class="form-label">Tour Guide</label>
+                <select required name="tour_guides_id" class="form-control @error('tour_guides_id') is-invalid @enderror" id="tour_guides_id">
+                  <option value="-">Choose tourist site first!</option>
+                </select>
+                @error('tour_guides_id')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
               </div>
               <div class="mb-3">
                   <label for="tickets_id" class="form-label">Ticket Available</label>
@@ -162,12 +177,12 @@
           $(document).on('change', '#tourist_site_facilities_id', function() {
             let id = $(this).val();
             $('#tickets_id option').remove();
+            $('#tour_guides_id option').remove();
             $('#quantity option').remove();
             $.ajax({
                 type: 'get',
                 url: '/transaction/getTickets/' + id,
                 success: function(tickets) {
-                console.log(tickets.language);
                   if (tickets.status == 'success') {
                     $('#quantity').append(
                         `<option value="-">Select checkout data & choose ticket first!</option>`
@@ -185,6 +200,21 @@
                       tickets.data.forEach(ticket => {
                         $('#tickets_id').append(
                             `<option value="${ticket.id}">${ticket.category.name}</option>`
+                        );
+                      });
+                    }
+
+                    if (tickets.tourguides.length == 0 || tickets.tourguides.length == '-') {
+                      $('#tour_guides_id').append(
+                        `<option value="-">No Tour Guide Available!</option>`
+                      );
+                    } else {
+                      $('#tour_guides_id').append(
+                        `<option value="-">Choose tour guide</option>`
+                      );
+                      tickets.tourguides.forEach(tourguide => {
+                        $('#tour_guides_id').append(
+                            `<option value="${tourguide.id}">${tourguide.name}</option>`
                         );
                       });
                     }
@@ -222,24 +252,26 @@
             });
           });
 
+          let totalPrice;
           $(document).on('change', '#quantity', function() {
             let price = $('#price').val();
             let quantity = $(this).val();
-            $('#total_price').val(price * quantity);
+            totalPrice = price * quantity;
+            $('#total_price').val(totalPrice);
           });
 
           $(document).on('change', '#coupons_id', function() {
             let coupons = $(this).val();
-            let total_price = $('#total_price').val();
             $.ajax({
                 type: 'get',
                 url: '/transaction/getCoupon/' + coupons,
                 success: function(coupon) {
                   if (coupon.status == 'success') {
                     if (coupon.data != null) {
-                      let total_coupon = total_price * (coupon.data.discount_percentage / 100);
-
-                      $('#total_price').val(total_price - total_coupon);
+                      let total_coupon = totalPrice * (coupon.data.discount_percentage / 100);
+                      $('#total_price').val(totalPrice - total_coupon);
+                    } else {
+                      $('#total_price').val(totalPrice);
                     }
                   }
                 }

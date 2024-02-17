@@ -17,9 +17,21 @@ use Illuminate\View\View;
 class TransactionController extends Controller
 {
     public function index(): View {
+        if (auth()->user()->role == 'super admin' || auth()->user()->role == 'admin') {
+            $transactions = Transaction::with(['touristSiteFacility.touristsite', 'ticket', 'customer'])->orderBy('created_at', 'DESC')->paginate(10);
+        } elseif(auth()->user()->role == 'staff') {
+            $staff = Staff::where('users_id', auth()->user()->id)->first();
+            $transactions = Transaction::with(['touristSiteFacility.touristsite', 'ticket', 'customer'])->where('staffs_id', $staff->id)->orderBy('created_at', 'DESC')->paginate(10);
+        } elseif(auth()->user()->role == 'tourguide') {
+            $tourguide = TourGuide::where('users_id', auth()->user()->id)->first();
+            $transactions = Transaction::with(['touristSiteFacility.touristsite', 'ticket', 'customer'])->where('tour_guides_id', $tourguide->id)->orderBy('created_at', 'DESC')->paginate(10);
+        } else {
+            $customer = Customer::where('users_id', auth()->user()->id)->first();
+            $transactions = Transaction::with(['touristSiteFacility.touristsite', 'ticket', 'customer'])->where('customers_id', $customer->id)->orderBy('created_at', 'DESC')->paginate(10);
+        };
         return view('transaction.index', [
             'title' => 'Transaction Page',
-            'transactions' => Transaction::with(['touristSiteFacility.touristsite', 'ticket', 'customer'])->orderBy('created_at', 'DESC')->paginate(10),
+            'transactions' => $transactions,
         ]);
     }
 
@@ -44,12 +56,21 @@ class TransactionController extends Controller
         $ticket = Ticket::with(['category', 'touristSiteFacility.touristsite.regioncategory.region'])->where('tourist_site_facilities_id', $id)->get();
         $tourist_site_facility = TouristSiteFacility::with(['touristsite.regioncategory.region'])->where('id', $id)->first();
         $languagesIds = $tourist_site_facility->touristsite->regioncategory->region->languages_id;
-        $tourguides = TourGuide::where('languages_id', $languagesIds)->get();
+        $tourguides = TourGuide::get(['id', 'languages_id'])->toArray();
+        $tourguideLanguage = [];
+        foreach ($tourguides as $tourguide) {
+            $tourguide['languages_id'] = explode(',', $tourguide['languages_id']);
+            if (in_array($languagesIds, $tourguide['languages_id'])) {
+                $tourguideLanguage[] = $tourguide['id'];
+            }
+        }
+        $tourguides = TourGuide::whereIn('id', $tourguideLanguage)->get();
 
         try {
             return response()->json([
                 'status' => 'success',
                 'data' => $ticket,
+                'tourguides' => $tourguides,
             ]);
         } catch (\Throwable $th) {
             return response()->json([
@@ -100,19 +121,26 @@ class TransactionController extends Controller
     public function store(Request $request) : RedirectResponse {
         try {
             $validatedData = $request->validate([
+                'staffs_id' => 'nullable|integer',
+                'customers_id' => 'required|integer',
                 'checkout_date' => 'required',
                 'tourist_site_facilities_id' => 'required|integer',
+                'tour_guides_id' => 'nullable|string',
                 'tickets_id' => 'required|integer',
-                'coupons_id' => 'nullable',
-                'customers_id' => 'required|integer',
-                'tour_guides_id' => 'nullable|integer',
-                'staffs_id' => 'nullable|integer',
                 'quantity' => 'required|integer',
+                'coupons_id' => 'nullable',
                 'total_price' => 'required|integer',
                 'total_pay' => 'required|integer',
                 'proof_of_payment' => 'required|file|image|mimes:png,jpg,jpeg,gif,svg,webp|max:2000',
             ]);
-            $validatedData['coupons_id'] = Coupon::where('coupon_code', $validatedData['coupons_id'])->first()->id;
+
+            if ($validatedData['coupons_id'] != null) {
+                $validatedData['coupons_id'] = Coupon::where('coupon_code', $validatedData['coupons_id'])->first()->id;
+            }
+
+            if ($validatedData['tour_guides_id'] == '-') {
+                $validatedData['tour_guides_id'] = null;
+            }
 
             if (!empty($request->proof_of_payment)) {
                 $image = $request->file('proof_of_payment');

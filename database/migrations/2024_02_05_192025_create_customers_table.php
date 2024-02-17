@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('users_id')->index();
             $table->string('name', 255);
-            $table->string('phone_number', 13);
-            $table->date('date_of_birth');
-            $table->string('place_of_birth');
-            $table->text('address');
+            $table->string('phone_number', 13)->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->string('place_of_birth')->nullable();
+            $table->text('address')->nullable();
+            $table->integer('status');
             $table->timestamps();
         });
     }

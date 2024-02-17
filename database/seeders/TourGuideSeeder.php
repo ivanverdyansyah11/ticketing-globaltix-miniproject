@@ -20,6 +20,7 @@ class TourGuideSeeder extends Seeder
             'phone_number' => '087567686734',
             'date_of_birth' => '2004-02-17',
             'place_of_birth' => 'Tabanan',
+            'status' => 1,
         ]);
 
         TourGuide::create([
@@ -29,6 +30,7 @@ class TourGuideSeeder extends Seeder
             'phone_number' => '088765756756',
             'date_of_birth' => '2006-08-28',
             'place_of_birth' => 'Klungkung',
+            'status' => 1,
         ]);
 
         TourGuide::create([
@@ -38,6 +40,7 @@ class TourGuideSeeder extends Seeder
             'phone_number' => '0898756y56756',
             'date_of_birth' => '2002-11-12',
             'place_of_birth' => 'Karangasem',
+            'status' => 1,
         ]);
     }
 }

@@ -42,6 +42,7 @@ class CustomerController extends Controller
                 'date_of_birth' => 'required',
                 'place_of_birth' => 'required',
                 'address' => 'required',
+                'status' => 'required|integer',
             ]);
 
             if (!empty($request->image)) {
@@ -67,6 +68,7 @@ class CustomerController extends Controller
                 'date_of_birth' => $validatedData['date_of_birth'],
                 'place_of_birth' => $validatedData['place_of_birth'],
                 'address' => $validatedData['address'],
+                'status' => $validatedData['status'],
             ]);
 
             return redirect(route('customer'))->with('success', 'Successfully Add New Customer!');
@@ -95,6 +97,7 @@ class CustomerController extends Controller
                 'date_of_birth' => 'required',
                 'place_of_birth' => 'required',
                 'address' => 'required',
+                'status' => 'required|integer',
             ]);
 
             if ($request->file('image')) {
@@ -118,6 +121,7 @@ class CustomerController extends Controller
                 'date_of_birth' => $validatedData['date_of_birth'],
                 'place_of_birth' => $validatedData['place_of_birth'],
                 'address' => $validatedData['address'],
+                'status' => $validatedData['status'],
             ]);
 
             $user->update([

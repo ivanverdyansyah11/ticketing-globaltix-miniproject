@@ -2,69 +2,137 @@
 
 @section('content-dashboard')
     <div class="container-fluid" style="padding-top: 110px;">
-        <div class="row">
-            <div class="col-sm-6 col-xl-3">
-                <div class="card overflow-hidden rounded-2">
-                    <div class="position-relative">
-                        <div class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute top-0 end-0 m-3">
-                            <i class="ti ti-basket fs-4"></i>                            
+        @if (auth()->user()->role == 'super admin' || auth()->user()->role == 'admin' || auth()->user()->role == 'staff')
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card overflow-hidden rounded-2">
+                        <div class="position-relative">
+                            <div class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute top-0 end-0 m-3">
+                                <i class="ti ti-credit-card-pay fs-4"></i>                            
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body pt-3 p-4">
-                        <h6 class="mb-2">Boat Headphone</h6>
-                        <div class="d-flex align-items-center justify-content-between">
-                        <h4 class="fw-semibold mb-0 text-primary">$50</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-xl-3">
-                <div class="card overflow-hidden rounded-2">
-                    <div class="position-relative">
-                        <div class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute top-0 end-0 m-3">
-                            <i class="ti ti-basket fs-4"></i>                            
-                        </div>
-                    </div>
-                    <div class="card-body pt-3 p-4">
-                        <h6 class="mb-2">MacBook Air Pro</h6>
-                        <div class="d-flex align-items-center justify-content-between">
-                        <h4 class="fw-semibold mb-0 text-primary">$650</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-xl-3">
-                <div class="card overflow-hidden rounded-2">
-                    <div class="position-relative">
-                        <div class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute top-0 end-0 m-3">
-                            <i class="ti ti-basket fs-4"></i>                            
-                        </div>
-                    </div>
-                    <div class="card-body pt-3 p-4">
-                        <h6 class="mb-2 fsRed Valvet Dress">MacBook Air Pro</h6>
+                        <div class="card-body pt-3 p-4">
+                            <h6 class="mb-2">Total Orders Served</h6>
                             <div class="d-flex align-items-center justify-content-between">
-                            <h4 class="fw-semibold mb-0 text-primary">$150</h4>
+                            <h4 class="fw-semibold mb-0 text-primary">{{ $datas[0] }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mt-4 mt-md-0">
+                    <div class="card overflow-hidden rounded-2">
+                        <div class="position-relative">
+                            <div class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute top-0 end-0 m-3">
+                                <i class="ti ti-language-hiragana fs-4"></i>                            
+                            </div>
+                        </div>
+                        <div class="card-body pt-3 p-4">
+                            <h6 class="mb-2">Total Languages</h6>
+                            <div class="d-flex align-items-center justify-content-between">
+                            <h4 class="fw-semibold mb-0 text-primary">{{ $datas[1] }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mt-4 mt-md-0">
+                    <div class="card overflow-hidden rounded-2">
+                        <div class="position-relative">
+                            <div class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute top-0 end-0 m-3">
+                                <i class="ti ti-flip-flops fs-4"></i>                            
+                            </div>
+                        </div>
+                        <div class="card-body pt-3 p-4">
+                            <h6 class="mb-2">Total Regions</h6>
+                            <div class="d-flex align-items-center justify-content-between">
+                            <h4 class="fw-semibold mb-0 text-primary">{{ $datas[2] }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mt-4 mt-md-0">
+                    <div class="card overflow-hidden rounded-2">
+                        <div class="position-relative">
+                            <div class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute top-0 end-0 m-3">
+                                <i class="ti ti-ticket fs-4"></i>                            
+                            </div>
+                        </div>
+                        <div class="card-body pt-3 p-4">
+                            <h6 class="mb-2">Total Tickets</h6>
+                            <div class="d-flex align-items-center justify-content-between">
+                            <h4 class="fw-semibold mb-0 text-primary">{{ $datas[3] }}</h4>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-xl-3">
-                <div class="card overflow-hidden rounded-2">
-                    <div class="position-relative">
-                        <div class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute top-0 end-0 m-3">
-                            <i class="ti ti-basket fs-4"></i>                            
+        @elseif(auth()->user()->role == 'tourguide')
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card overflow-hidden rounded-2">
+                        <div class="position-relative">
+                            <div class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute top-0 end-0 m-3">
+                                <i class="ti ti-thumb-up fs-4"></i>                            
+                            </div>
+                        </div>
+                        <div class="card-body pt-3 p-4">
+                            <h6 class="mb-2">Total Services Required</h6>
+                            <div class="d-flex align-items-center justify-content-between">
+                            <h4 class="fw-semibold mb-0 text-primary">{{ $datas[0] }}</h4>
+                            </div>
                         </div>
                     </div>
-                    <div class="card-body pt-3 p-4">
-                        <h6 class="mb-2">Cute Soft Teddybear</h6>
-                        <div class="d-flex align-items-center justify-content-between">
-                        <h4 class="fw-semibold mb-0 text-primary">$285</h4>
+                </div>
+                <div class="col-md-6 mt-4 mt-md-0">
+                    <div class="card overflow-hidden rounded-2">
+                        <div class="position-relative">
+                            <div class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute top-0 end-0 m-3">
+                                <i class="ti ti-brand-cashapp fs-4"></i>                            
+                            </div>
+                        </div>
+                        <div class="card-body pt-3 p-4">
+                            <h6 class="mb-2">Total Revenue</h6>
+                            <div class="d-flex align-items-center justify-content-between">
+                            <h4 class="fw-semibold mb-0 text-primary">Rp. {{ $datas[1] }}</h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
+        @else
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card overflow-hidden rounded-2">
+                        <div class="position-relative">
+                            <div class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute top-0 end-0 m-3">
+                                <i class="ti ti-ticket fs-4"></i>                            
+                            </div>
+                        </div>
+                        <div class="card-body pt-3 p-4">
+                            <h6 class="mb-2">Total Ticket Purchased</h6>
+                            <div class="d-flex align-items-center justify-content-between">
+                            <h4 class="fw-semibold mb-0 text-primary">{{ $datas[0] }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-4 mt-md-0">
+                    <div class="card overflow-hidden rounded-2">
+                        <div class="position-relative">
+                            <div class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute top-0 end-0 m-3">
+                                <i class="ti ti-brand-cashapp fs-4"></i>                            
+                            </div>
+                        </div>
+                        <div class="card-body pt-3 p-4">
+                            <h6 class="mb-2">Total Expenses</h6>
+                            <div class="d-flex align-items-center justify-content-between">
+                            <h4 class="fw-semibold mb-0 text-primary">Rp. {{ $datas[1] }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+        {{-- <div class="row">
             <div class="col-lg-8 d-flex align-items-strech">
                 <div class="card w-100">
                     <div class="card-body">
@@ -153,6 +221,6 @@
                 </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 @endsection

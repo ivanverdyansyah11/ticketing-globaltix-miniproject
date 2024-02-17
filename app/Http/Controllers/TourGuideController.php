@@ -46,6 +46,7 @@ class TourGuideController extends Controller
                 'phone_number' => 'required|max:13',
                 'date_of_birth' => 'required',
                 'place_of_birth' => 'required',
+                'status' => 'required|integer',
             ]);
             $validatedData['languages_id'] = implode(',', $validatedData['languages_id']);
 
@@ -72,6 +73,7 @@ class TourGuideController extends Controller
                 'phone_number' => $validatedData['phone_number'],
                 'date_of_birth' => $validatedData['date_of_birth'],
                 'place_of_birth' => $validatedData['place_of_birth'],
+                'status' => $validatedData['status'],
             ]);
 
             return redirect(route('tourguide'))->with('success', 'Successfully Add New Tour Guide!');
@@ -101,6 +103,7 @@ class TourGuideController extends Controller
                 'phone_number' => 'required|max:13',
                 'date_of_birth' => 'required',
                 'place_of_birth' => 'required',
+                'status' => 'required|integer',
             ]);
             $validatedData['languages_id'] = implode(',', $validatedData['languages_id']);
 
@@ -125,6 +128,7 @@ class TourGuideController extends Controller
                 'phone_number' => $validatedData['phone_number'],
                 'date_of_birth' => $validatedData['date_of_birth'],
                 'place_of_birth' => $validatedData['place_of_birth'],
+                'status' => $validatedData['status'],
             ]);
 
             $user->update([
