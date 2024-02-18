@@ -5,67 +5,64 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreLanguageRequest;
 use App\Http\Requests\UpdateLanguageRequest;
 use App\Models\Language;
+use App\Repositories\LanguageRepositories;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class LanguageController extends Controller
 {
+    public function __construct(
+        protected readonly LanguageRepositories $language,
+    ) {}
+
     public function index() : View {
+        $languages = $this->language->findAllPaginate();
         return view('language.index', [
             'title' => 'Language Page',
-            'languages' => Language::orderBy('created_at', 'DESC')->paginate(10),
+            'languages' => $languages,
         ]);
     }
 
-    public function detail($id) : JsonResponse {
-        $language = Language::where('id', $id)->first();
+    public function show(Language $language) : JsonResponse {
         try {
             return response()->json([
                 'status' => 'success',
-                'data' => $language,
+                'data' => $this->language->findById($language->id),
             ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to get data for Language with ID ' . $id,
-            ], 404);
+                'message' => 'Failed to get data for Language with ID ' . $language->id,
+            ], 500);
         }
     }
 
     public function store(StoreLanguageRequest $request) : RedirectResponse {
-        try {
-            Language::create($request->all());
-
-            return redirect(route('language'))->with('success', 'Successfully Add New Language!');
-        } catch (\Throwable $th) {
-            return redirect(route('language'))->with('failed', 'Failed Add New Language!');
+        try {                        
+            $this->language->store($request->validated());
+            return redirect(route('language.index'))->with('success', 'Successfully Add New Language!');
+        } catch (\Exception $e) {  
+            logger($e->getMessage());
+            return redirect(route('language.index'))->with('failed', 'Failed Add New Language!');
         }
     }
 
-    public function update(UpdateLanguageRequest $request, $id) : RedirectResponse {
-        $language = Language::where('id', $id)->first();
-
-        try {
-            $language->update($request->all());
-
-            return redirect(route('language'))->with('success', 'Successfully Update Language!');
-
-        } catch (\Throwable $th) {
-            return redirect(route('language'))->with('failed', 'Failed Update Language!');
+    public function update(UpdateLanguageRequest $request, Language $language) : RedirectResponse {
+        try {                     
+            $this->language->update($request->validated(), $language);
+            return redirect(route('language.index'))->with('success', 'Successfully Update Language!');
+        } catch (\Exception $e) {
+            return redirect(route('language.index'))->with('failed', 'Failed Update Language!');
         }
     }
 
-    public function delete($id) : RedirectResponse {
-        $language = Language::where('id', $id)->first();
-
+    public function destroy(Language $language) : RedirectResponse {
         try {
-            $language->delete();
-
-            return redirect(route('language'))->with('success', 'Successfully Delete Language!');
-        } catch (\Throwable $th) {
-            return redirect(route('language'))->with('failde', 'Failed Delete Language!');
+            $this->language->delete($language);
+            return redirect(route('language.index'))->with('success', 'Successfully Delete Language!');
+        } catch (\Exception $e) {            
+            return redirect(route('language.index'))->with('failde', 'Failed Delete Language!');
         }
     }
 }
