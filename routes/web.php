@@ -120,21 +120,9 @@ Route::middleware(['auth'])->group(function() {
         Route::post('/transaction/add', 'store')->name('transaction.store');
     });
 
-    Route::controller(ProfileAdminController::class)->group(function() {
-        Route::get('/profile', 'index')->name('profile')->middleware(['isAdmin']);
-        Route::get('/profile/edit', 'edit')->name('profile.edit')->middleware(['isAdmin']);
-        Route::post('/profile/edit', 'update')->name('profile.update')->middleware(['isAdmin']);
-    });
-
-    Route::controller(ProfileStaffController::class)->group(function() {
-        Route::get('/profile', 'index')->name('profile')->middleware(['isStaff']);
-        Route::get('/profile/edit', 'edit')->name('profile.edit')->middleware(['isStaff']);
-        Route::post('/profile/edit', 'update')->name('profile.update')->middleware(['isStaff']);
-    });
-
-    Route::controller(ProfileCustomerController::class)->group(function() {
-        Route::get('/profile', 'index')->name('profile')->middleware(['isCustomer']);
-        Route::get('/profile/edit', 'edit')->name('profile.edit')->middleware(['isCustomer']);
-        Route::post('/profile/edit', 'update')->name('profile.update')->middleware(['isCustomer']);
+    Route::controller(ProfileController::class)->group(function() {
+        Route::get('/profile', 'index')->name('profile');
+        Route::get('/profile/edit', 'edit')->name('profile.edit');
+        Route::post('/profile/edit', 'update')->name('profile.update');
     });
 });
