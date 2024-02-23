@@ -86,7 +86,7 @@
             let id = $(this).data('id');
             $.ajax({
                 type: 'get',
-                url: '/language/detail/' + id,
+                url: '/language/' + id,
                 success: function(language) {
                     if (language.status == 'success') {
                         $('[data-value="name"]').val(language.data.name);
@@ -97,10 +97,10 @@
 
         $(document).on('click', '[data-bs-target="#editModal"]', function() {
             let id = $(this).data('id');
-            $('#buttonEditLanguage').attr('action', '/language/edit/' + id);
+            $('#buttonEditLanguage').attr('action', '/language/' + id);
             $.ajax({
                 type: 'get',
-                url: '/language/detail/' + id,
+                url: '/language/' + id,
                 success: function(language) {
                     if (language.status == 'success') {
                         $('[data-value="name"]').val(language.data.name);
@@ -111,7 +111,7 @@
 
         $(document).on('click', '[data-bs-target="#deleteModal"]', function() {
             let id = $(this).data('id');
-            $('#buttonDeleteLanguage').attr('action', '/language/delete/' + id);
+            $('#buttonDeleteLanguage').attr('action', '/language/' + id);
         });
     </script>
 @endpush
