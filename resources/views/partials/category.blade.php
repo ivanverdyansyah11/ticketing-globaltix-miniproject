@@ -71,6 +71,7 @@
             </div>
             <form id="buttonEditCategory" method="POST" class="d-inline-block w-100">
                 @csrf
+                @method("PUT")
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
@@ -109,6 +110,7 @@
             </div>
             <form id="buttonDeleteCategory" method="POST" class="d-inline-block w-100">
                 @csrf
+                @method("DELETE")
                 <div class="modal-body">
                     <p>Are your sure want to delete this category?</p>
                 </div>
