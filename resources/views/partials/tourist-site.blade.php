@@ -5,7 +5,7 @@
                 <h1 class="modal-title fs-5" id="createModalLabel">Modal Add New Tourist Site</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('toursite.store') }}" method="POST" class="d-inline-block w-100">
+            <form action="{{ route('touristsite.store') }}" method="POST" class="d-inline-block w-100">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
@@ -89,6 +89,7 @@
             </div>
             <form id="buttonEditTouristSite" method="POST" class="d-inline-block w-100">
                 @csrf
+                @method("PUT")
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="region_categories_id" class="form-label">Region</label>
@@ -137,6 +138,7 @@
             </div>
             <form id="buttonDeleteTouristSite" method="POST" class="d-inline-block w-100">
                 @csrf
+                @method("DELETE")
                 <div class="modal-body">
                     <p>Are your sure want to delete this tourist site?</p>
                 </div>
