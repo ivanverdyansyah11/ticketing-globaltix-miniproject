@@ -105,17 +105,17 @@
             $('[data-element="row-detail-checkbox"] .col').remove();
             $.ajax({
                 type: 'get',
-                url: '/toursitefacility/detail/' + id,
-                success: function(toursitefacility) {
-                    if (toursitefacility.status == 'success') {
-                        $('[data-value="tourist_sites_id"]').val(toursitefacility.data[0].touristsite.name);
+                url: '/touristsitefacility/' + id,
+                success: function(touristsitefacility) {
+                    if (touristsitefacility.status == 'success') {
+                        $('[data-value="tourist_sites_id"]').val(touristsitefacility.data[0].touristsite.name);
 
-                        let facilityArray = toursitefacility.data[0].facilities_id.split(",");
+                        let facilityArray = touristsitefacility.data[0].facilities_id.split(",");
                         facilityArray = facilityArray.map(function(string) {
                             return parseInt(string);
                         });
 
-                        toursitefacility.data[1].forEach(facility => {
+                        touristsitefacility.data[1].forEach(facility => {
                             if (facilityArray.includes(facility.id)) {
                                 $('[data-element="row-detail-checkbox"]').append(
                                     `<div class="col mb-1">
@@ -141,14 +141,14 @@
             let id = $(this).data('id');
             $('[data-element="row-edit-select] option').remove();
             $('[data-element="row-edit-checkbox"] .col').remove();
-            $('#buttonEditTouristSiteFacility').attr('action', '/toursitefacility/edit/' + id);
+            $('#buttonEditTouristSiteFacility').attr('action', '/touristsitefacility/' + id);
             $.ajax({
                 type: 'get',
-                url: '/toursitefacility/detail/' + id,
-                success: function(toursitefacility) {
-                    if (toursitefacility.status == 'success') {
-                        toursitefacility.data[2].forEach(tourist_site => {
-                            if (tourist_site.id === toursitefacility.data[0].tourist_sites_id) {
+                url: '/touristsitefacility/' + id,
+                success: function(touristsitefacility) {
+                    if (touristsitefacility.status == 'success') {
+                        touristsitefacility.data[2].forEach(tourist_site => {
+                            if (tourist_site.id === touristsitefacility.data[0].tourist_sites_id) {
                                 $('[data-element="row-edit-select"]').append(
                                     `<option value="${tourist_site.id}" selected>${tourist_site.name}</option>`
                                 );
@@ -159,12 +159,12 @@
                             }
                         });
 
-                        let facilityArray = toursitefacility.data[0].facilities_id.split(",");
+                        let facilityArray = touristsitefacility.data[0].facilities_id.split(",");
                         facilityArray = facilityArray.map(function(string) {
                             return parseInt(string);
                         });
 
-                        toursitefacility.data[1].forEach(facility => {
+                        touristsitefacility.data[1].forEach(facility => {
                             if (facilityArray.includes(facility.id)) {
                                 $('[data-element="row-edit-checkbox"]').append(
                                     `<div class="col mb-1">
@@ -188,7 +188,7 @@
 
         $(document).on('click', '[data-bs-target="#deleteModal"]', function() {
             let id = $(this).data('id');
-            $('#buttonDeleteTouristSiteFacility').attr('action', '/toursitefacility/delete/' + id);
+            $('#buttonDeleteTouristSiteFacility').attr('action', '/touristsitefacility/' + id);
         });
     </script>
 @endpush
