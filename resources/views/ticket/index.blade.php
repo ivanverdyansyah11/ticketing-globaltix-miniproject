@@ -104,7 +104,7 @@
             let id = $(this).data('id');
             $.ajax({
                 type: 'get',
-                url: '/ticket/detail/' + id,
+                url: '/ticket/' + id,
                 success: function(ticket) {
                     if (ticket.status == 'success') {
                         $('[data-value="tourist_site_facilities_id"]').val(ticket.data[0].tourist_site_facility.touristsite.name);
@@ -120,10 +120,10 @@
             let id = $(this).data('id');
             $('[data-element="row-edit-select"] option').remove();
             $('[data-element="row-edit-select-category"] option').remove();
-            $('#buttonEditTicket').attr('action', '/ticket/edit/' + id);
+            $('#buttonEditTicket').attr('action', '/ticket/' + id);
             $.ajax({
                 type: 'get',
-                url: '/ticket/detail/' + id,
+                url: '/ticket/' + id,
                 success: function(ticket) {
                     if (ticket.status == 'success') {
                         ticket.data[1].forEach(tourist_site_facility => {
@@ -159,7 +159,7 @@
 
         $(document).on('click', '[data-bs-target="#deleteModal"]', function() {
             let id = $(this).data('id');
-            $('#buttonDeleteTicket').attr('action', '/ticket/delete/' + id);
+            $('#buttonDeleteTicket').attr('action', '/ticket/' + id);
         });
     </script>
 @endpush
