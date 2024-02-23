@@ -98,12 +98,12 @@
             let id = $(this).data('id');
             $.ajax({
                 type: 'get',
-                url: '/region/detail/' + id,
+                url: '/region/' + id,
                 success: function(region) {
                     if (region.status == 'success') {
-                        $('[data-value="name"]').val(region.data[0].name);
-                        $('[data-value="languages_id"]').val(region.data[0].language.name);
-                        $('[data-value="description"]').html(region.data[0].description);
+                        $('[data-value="name"]').val(region.data.name);
+                        $('[data-value="languages_id"]').val(region.data.language.name);
+                        $('[data-value="description"]').html(region.data.description);
                     }
                 }
             });
@@ -112,14 +112,14 @@
         $(document).on('click', '[data-bs-target="#editModal"]', function() {
             let id = $(this).data('id');
             $('[data-element="row-edit-select"] option').remove();
-            $('#buttonEditRegion').attr('action', '/region/edit/' + id);
+            $('#buttonEditRegion').attr('action', '/region/' + id);
             $.ajax({
                 type: 'get',
-                url: '/region/detail/' + id,
+                url: '/region/' + id,
                 success: function(region) {
                     if (region.status == 'success') {
-                        region.data[1].forEach(language => {
-                            if (language.id === region.data[0].languages_id) {
+                        region.languages.forEach(language => {
+                            if (language.id === region.data.languages_id) {
                                 $('[data-element="row-edit-select"]').append(
                                     `<option value="${language.id}" selected>${language.name}</option>`
                                 );
@@ -130,8 +130,8 @@
                             }
                         });
 
-                        $('[data-value="name"]').val(region.data[0].name);
-                        $('[data-value="description"]').html(region.data[0].description);
+                        $('[data-value="name"]').val(region.data.name);
+                        $('[data-value="description"]').html(region.data.description);
                     }
                 }
             });
@@ -139,7 +139,7 @@
 
         $(document).on('click', '[data-bs-target="#deleteModal"]', function() {
             let id = $(this).data('id');
-            $('#buttonDeleteRegion').attr('action', '/region/delete/' + id);
+            $('#buttonDeleteRegion').attr('action', '/region/' + id);
         });
     </script>
 @endpush
