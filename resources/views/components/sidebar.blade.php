@@ -23,7 +23,7 @@
                     </a>
                 </li>
 
-                @if (auth()->user()->role == 'super admin' || auth()->user()->role == 'admin')
+                @if (auth()->user()->role == 'super_admin' || auth()->user()->role == 'admin')
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">User</span>
@@ -62,13 +62,13 @@
                     </li>                    
                 @endif
 
-                @if (auth()->user()->role == 'super admin' || auth()->user()->role == 'admin' || auth()->user()->role == 'staff')
+                @if (auth()->user()->role == 'super_admin' || auth()->user()->role == 'admin' || auth()->user()->role == 'staff')
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">Management</span>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link {{ Route::is('language*') ? 'active' : '' }}" href="{{ route('language') }}" aria-expanded="false">
+                        <a class="sidebar-link {{ Route::is('language*') ? 'active' : '' }}" href="{{ route('language.index') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-language"></i>
                             </span>
@@ -76,7 +76,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link {{ Route::is('region') ? 'active' : '' }}" href="{{ route('region') }}" aria-expanded="false">
+                        <a class="sidebar-link {{ Route::is('region') ? 'active' : '' }}" href="{{ route('region.index') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-plane-tilt"></i>
                             </span>
@@ -84,7 +84,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link {{ Route::is('category*') ? 'active' : '' }}" href="{{ route('category') }}" aria-expanded="false">
+                        <a class="sidebar-link {{ Route::is('category*') ? 'active' : '' }}" href="{{ route('category.index') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-brand-superhuman"></i>
                             </span>
@@ -92,7 +92,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link {{ Route::is('region_category*') ? 'active' : '' }}" href="{{ route('region_category') }}" aria-expanded="false">
+                        <a class="sidebar-link {{ Route::is('regioncategory*') ? 'active' : '' }}" href="{{ route('regioncategory.index') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-beach"></i>
                             </span>
@@ -105,7 +105,7 @@
                         <span class="hide-menu">Destination</span>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link {{ Route::is('facility*') ? 'active' : '' }}" href="{{ route('facility') }}" aria-expanded="false">
+                        <a class="sidebar-link {{ Route::is('facility*') ? 'active' : '' }}" href="{{ route('facility.index') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-kayak"></i>
                             </span>
@@ -113,7 +113,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link {{ Route::is('toursite') ? 'active' : '' }}" href="{{ route('toursite') }}" aria-expanded="false">
+                        <a class="sidebar-link {{ Route::is('touristsite') ? 'active' : '' }}" href="{{ route('touristsite.index') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-mountain"></i>
                             </span>
@@ -121,22 +121,20 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link {{ Route::is('toursitefacility*') ? 'active' : '' }}" href="{{ route('toursitefacility') }}" aria-expanded="false">
+                        <a class="sidebar-link {{ Route::is('touristsitefacility*') ? 'active' : '' }}" href="{{ route('touristsitefacility.index') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-map-discount"></i>
                             </span>
                             <span class="hide-menu">Tourist Site Facility</span>
                         </a>
                     </li>
-                @endif
 
-                @if (auth()->user()->role == 'super admin' || auth()->user()->role == 'admin' || auth()->user()->role == 'staff')
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">Preparation</span>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link {{ Route::is('ticketcategory*') ? 'active' : '' }}" href="{{ route('ticketcategory') }}" aria-expanded="false">
+                        <a class="sidebar-link {{ Route::is('ticketcategory*') ? 'active' : '' }}" href="{{ route('ticketcategory.index') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-article"></i>
                             </span>
@@ -144,7 +142,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link {{ Route::is('ticket') ? 'active' : '' }}" href="{{ route('ticket') }}" aria-expanded="false">
+                        <a class="sidebar-link {{ Route::is('ticket') ? 'active' : '' }}" href="{{ route('ticket.index') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-ticket"></i>
                             </span>
@@ -152,7 +150,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link {{ Route::is('coupon*') ? 'active' : '' }}" href="{{ route('coupon') }}" aria-expanded="false">
+                        <a class="sidebar-link {{ Route::is('coupon*') ? 'active' : '' }}" href="{{ route('coupon.index') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-discount-2"></i>
                             </span>
