@@ -4,29 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTouristSiteFacilityRequest;
 use App\Http\Requests\UpdateTouristSiteFacilityRequest;
-use App\Models\Facility;
-use App\Models\TouristSite;
 use App\Models\TouristSiteFacility;
+use App\Repositories\FacilityRepositories;
+use App\Repositories\TouristSiteFacilityRepositories;
+use App\Repositories\TouristSiteRepositories;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class TouristSiteFacilityController extends Controller
 {
+    public function __construct(
+        protected readonly TouristSiteFacilityRepositories $touristsitefacility,
+        protected readonly TouristSiteRepositories $touristsite,
+        protected readonly FacilityRepositories $facility,
+    ) {}
+
     public function index() : View {
         return view('tourist-site-facility.index', [
             'title' => 'Tourist Site Facility Page',
-            'tourist_site_facilities' => TouristSiteFacility::with(['touristsite', 'facility'])->orderBy('created_at', 'DESC')->paginate(10),
-            'tourist_sites' => TouristSite::with(['regioncategory.region'])->get(),
-            'facilities' => Facility::all(),
+            'tourist_site_facilities' => $this->touristsitefacility->findAllPaginate(),
+            'tourist_sites' => $this->touristsite->findAll(),
+            'facilities' => $this->facility->findAll(),
         ]);
     }
 
-    public function detail($id) : JsonResponse {
-        $tourist_site_facility = TouristSiteFacility::with(['touristsite', 'facility'])->where('id', $id)->first();
-        $facilities = Facility::all();
-        $tourist_sites = TouristSite::with(['regioncategory.region'])->get();
+    public function show(TouristSiteFacility $touristsitefacility) : JsonResponse {
+        $tourist_site_facility = $this->touristsitefacility->findById($touristsitefacility->id);
+        $tourist_sites = $this->touristsite->findAll();
+        $facilities = $this->facility->findAll();
         try {
             return response()->json([
                 'status' => 'success',
@@ -35,44 +41,35 @@ class TouristSiteFacilityController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to get data for Tourist Site Facility with ID ' . $id,
+                'message' => 'Failed to get data for Tourist Site Facility with ID ' . $touristsitefacility->id,
             ], 404);
         }
     }
 
     public function store(StoreTouristSiteFacilityRequest $request) : RedirectResponse {
         try {
-            $request['facilities_id'] = implode(',', $request['facilities_id']);
-            TouristSiteFacility::create($request->all());
-
-            return redirect(route('toursitefacility'))->with('success', 'Successfully Add New Tourist Site Facility!');
+            $this->touristsitefacility->store($request->validated());
+            return redirect(route('touristsitefacility.index'))->with('success', 'Successfully Add New Tourist Site Facility!');
         } catch (\Throwable $th) {
-            return redirect(route('toursitefacility'))->with('failed', 'Failed Add New Tourist Site Facility!');
+            return redirect(route('touristsitefacility.index'))->with('failed', 'Failed Add New Tourist Site Facility!');
         }
     }
 
-    public function update(UpdateTouristSiteFacilityRequest $request, $id) : RedirectResponse {
-        $tourist_site_facility = TouristSiteFacility::where('id', $id)->first();
+    public function update(UpdateTouristSiteFacilityRequest $request, TouristSiteFacility $touristsitefacility) : RedirectResponse {
         try {
-            $request['facilities_id'] = implode(',', $request['facilities_id']);
-            $tourist_site_facility->update($request->all());
-
-            return redirect(route('toursitefacility'))->with('success', 'Successfully Update Tourist Site Facility!');
-
+            $this->touristsitefacility->update($request->validated(), $touristsitefacility);
+            return redirect(route('touristsitefacility.index'))->with('success', 'Successfully Update Tourist Site Facility!');
         } catch (\Throwable $th) {
-            return redirect(route('toursitefacility'))->with('failed', 'Failed Update Tourist Site Facility!');
+            return redirect(route('touristsitefacility.index'))->with('failed', 'Failed Update Tourist Site Facility!');
         }
     }
 
-    public function delete($id) : RedirectResponse {
-        $tourist_site_facility = TouristSiteFacility::where('id', $id)->first();
-
+    public function destroy(TouristSiteFacility $touristsitefacility) : RedirectResponse {
         try {
-            $tourist_site_facility->delete();
-
-            return redirect(route('toursitefacility'))->with('success', 'Successfully Delete Tourist Site Facility!');
+            $this->touristsitefacility->delete($touristsitefacility);
+            return redirect(route('touristsitefacility.index'))->with('success', 'Successfully Delete Tourist Site Facility!');
         } catch (\Throwable $th) {
-            return redirect(route('toursitefacility'))->with('failde', 'Failed Delete Tourist Site Facility!');
+            return redirect(route('touristsitefacility.index'))->with('failde', 'Failed Delete Tourist Site Facility!');
         }
     }
 }
