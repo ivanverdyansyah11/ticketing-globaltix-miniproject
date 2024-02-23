@@ -98,12 +98,12 @@
             let id = $(this).data('id');
             $.ajax({
                 type: 'get',
-                url: '/toursite/detail/' + id,
-                success: function(toursite) {
-                    if (toursite.status == 'success') {
-                        $('[data-value="region_categories_id"]').val(toursite.data[0].regioncategory.region.name);
-                        $('[data-value="name"]').val(toursite.data[0].name);
-                        $('[data-value="description"]').html(toursite.data[0].description);
+                url: '/touristsite/' + id,
+                success: function(touristsite) {
+                    if (touristsite.status == 'success') {
+                        $('[data-value="region_categories_id"]').val(touristsite.data[0].regioncategory.region.name);
+                        $('[data-value="name"]').val(touristsite.data[0].name);
+                        $('[data-value="description"]').html(touristsite.data[0].description);
                     }
                 }
             });
@@ -112,14 +112,14 @@
         $(document).on('click', '[data-bs-target="#editModal"]', function() {
             let id = $(this).data('id');
             $('[data-element="row-edit-select"] option').remove();
-            $('#buttonEditTouristSite').attr('action', '/toursite/edit/' + id);
+            $('#buttonEditTouristSite').attr('action', '/touristsite/' + id);
             $.ajax({
                 type: 'get',
-                url: '/toursite/detail/' + id,
-                success: function(toursite) {
-                    if (toursite.status == 'success') {
-                        toursite.data[1].forEach(region_category => {
-                            if (region_category.id === toursite.data[0].region_categories_id) {
+                url: '/touristsite/' + id,
+                success: function(touristsite) {
+                    if (touristsite.status == 'success') {
+                        touristsite.data[1].forEach(region_category => {
+                            if (region_category.id === touristsite.data[0].region_categories_id) {
                                 $('[data-element="row-edit-select"]').append(
                                     `<option value="${region_category.region.id}" selected>${region_category.region.name}</option>`
                                 );
@@ -130,8 +130,8 @@
                             }
                         });
 
-                        $('[data-value="name"]').val(toursite.data[0].name);
-                        $('[data-value="description"]').html(toursite.data[0].description);
+                        $('[data-value="name"]').val(touristsite.data[0].name);
+                        $('[data-value="description"]').html(touristsite.data[0].description);
                     }
                 }
             });
@@ -139,7 +139,7 @@
 
         $(document).on('click', '[data-bs-target="#deleteModal"]', function() {
             let id = $(this).data('id');
-            $('#buttonDeleteTouristSite').attr('action', '/toursite/delete/' + id);
+            $('#buttonDeleteTouristSite').attr('action', '/touristsite/' + id);
         });
     </script>
 @endpush
