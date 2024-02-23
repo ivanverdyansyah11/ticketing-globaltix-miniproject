@@ -17,10 +17,9 @@ class LanguageController extends Controller
     ) {}
 
     public function index() : View {
-        $languages = $this->language->findAllPaginate();
         return view('language.index', [
             'title' => 'Language Page',
-            'languages' => $languages,
+            'languages' => $this->language->findAllPaginate(),
         ]);
     }
 
@@ -62,7 +61,7 @@ class LanguageController extends Controller
             $this->language->delete($language);
             return redirect(route('language.index'))->with('success', 'Successfully Delete Language!');
         } catch (\Exception $e) {            
-            return redirect(route('language.index'))->with('failde', 'Failed Delete Language!');
+            return redirect(route('language.index'))->with('failed', 'Failed Delete Language!');
         }
     }
 }
