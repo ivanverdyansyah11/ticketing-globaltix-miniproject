@@ -105,7 +105,7 @@
             $('[data-element="row-detail-checkbox"] .col').remove();
             $.ajax({
                 type: 'get',
-                url: '/regioncategory/detail/' + id,
+                url: '/regioncategory/' + id,
                 success: function(regionCategory) {
                     if (regionCategory.status == 'success') {
                         $('[data-value="regions_id"]').val(regionCategory.data[0].region.name);
@@ -140,10 +140,10 @@
             let id = $(this).data('id');
             $('[data-element="row-edit-select"] option').remove();
             $('[data-element="row-edit-checkbox"] .col').remove();
-            $('#buttonEditRegionCategory').attr('action', '/regioncategory/edit/' + id);
+            $('#buttonEditRegionCategory').attr('action', '/regioncategory/' + id);
             $.ajax({
                 type: 'get',
-                url: '/regioncategory/detail/' + id,
+                url: '/regioncategory/' + id,
                 success: function(regionCategory) {
                     if (regionCategory.status == 'success') {
                         regionCategory.data[2].forEach(region => {
@@ -187,7 +187,7 @@
 
         $(document).on('click', '[data-bs-target="#deleteModal"]', function() {
             let id = $(this).data('id');
-            $('#buttonDeleteRegionCategory').attr('action', '/regioncategory/delete/' + id);
+            $('#buttonDeleteRegionCategory').attr('action', '/regioncategory/' + id);
         });
     </script>
 @endpush
