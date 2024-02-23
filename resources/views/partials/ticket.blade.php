@@ -107,6 +107,7 @@
             </div>
             <form id="buttonEditTicket" method="POST" class="d-inline-block w-100">
                 @csrf
+                @method("PUT")
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="tourist_site_facilities_id" class="form-label">Tourist Site Facility</label>
@@ -165,6 +166,7 @@
             </div>
             <form id="buttonDeleteTicket" method="POST" class="d-inline-block w-100">
                 @csrf
+                @method("DELETE")
                 <div class="modal-body">
                     <p>Are your sure want to delete this ticket?</p>
                 </div>
