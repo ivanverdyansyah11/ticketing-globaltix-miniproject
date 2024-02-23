@@ -104,7 +104,7 @@
             let id = $(this).data('id');
             $.ajax({
                 type: 'get',
-                url: '/coupon/detail/' + id,
+                url: '/coupon/' + id,
                 success: function(coupon) {
                     if (coupon.status == 'success') {
                         $('[data-value="coupon_code"]').val(coupon.data.coupon_code);
@@ -118,10 +118,10 @@
 
         $(document).on('click', '[data-bs-target="#editModal"]', function() {
             let id = $(this).data('id');
-            $('#buttonEditCoupon').attr('action', '/coupon/edit/' + id);
+            $('#buttonEditCoupon').attr('action', '/coupon/' + id);
             $.ajax({
                 type: 'get',
-                url: '/coupon/detail/' + id,
+                url: '/coupon/' + id,
                 success: function(coupon) {
                     if (coupon.status == 'success') {
                         $('[data-value="coupon_code"]').val(coupon.data.coupon_code);
@@ -135,7 +135,7 @@
 
         $(document).on('click', '[data-bs-target="#deleteModal"]', function() {
             let id = $(this).data('id');
-            $('#buttonDeleteCoupon').attr('action', '/coupon/delete/' + id);
+            $('#buttonDeleteCoupon').attr('action', '/coupon/' + id);
         });
     </script>
 @endpush
