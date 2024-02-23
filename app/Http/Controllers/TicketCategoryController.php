@@ -5,67 +5,65 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTicketCategoryRequest;
 use App\Http\Requests\UpdateTicketCategoryRequest;
 use App\Models\TicketCategory;
+use App\Repositories\TicketCategoryRepositories;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class TicketCategoryController extends Controller
 {
+    public function __construct(
+        protected readonly TicketCategoryRepositories $ticketcategory,
+    ) {}
+
     public function index() : View {
         return view('ticket-category.index', [
             'title' => 'Ticket Category Page',
-            'ticket_categories' => TicketCategory::orderBy('created_at', 'DESC')->paginate(10),
+            'ticket_categories' => $this->ticketcategory->findAllPaginate(),
         ]);
     }
 
-    public function detail($id) : JsonResponse {
-        $ticket = TicketCategory::where('id', $id)->first();
+    public function show(TicketCategory $ticketcategory) : JsonResponse {
         try {
             return response()->json([
                 'status' => 'success',
-                'data' => $ticket,
+                'data' => $this->ticketcategory->findById($ticketcategory->id),
             ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to get data for Ticket Category with ID ' . $id,
+                'message' => 'Failed to get data for Ticket Category with ID ' . $ticketcategory->id,
             ], 404);
         }
     }
 
     public function store(StoreTicketCategoryRequest $request) : RedirectResponse {
         try {
-            TicketCategory::create($request->all());
-
-            return redirect(route('ticketcategory'))->with('success', 'Successfully Add New Ticket Category!');
-        } catch (\Throwable $th) {
-            return redirect(route('ticketcategory'))->with('failed', 'Failed Add New Ticket Category!');
+            $this->ticketcategory->store($request->validated());
+            return redirect(route('ticketcategory.index'))->with('success', 'Successfully Add New Ticket Category!');
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+            return redirect(route('ticketcategory.index'))->with('failed', 'Failed Add New Ticket Category!');
         }
     }
 
-    public function update(UpdateTicketCategoryRequest $request, $id) : RedirectResponse {
-        $ticket = TicketCategory::where('id', $id)->first();
-
+    public function update(UpdateTicketCategoryRequest $request, TicketCategory $ticketcategory) : RedirectResponse {
         try {
-            $ticket->update($request->all());
-
-            return redirect(route('ticketcategory'))->with('success', 'Successfully Update Ticket Category!');
-
-        } catch (\Throwable $th) {
-            return redirect(route('ticketcategory'))->with('failed', 'Failed Update Ticket Category!');
+            $this->ticketcategory->update($request->validated(), $ticketcategory);
+            return redirect(route('ticketcategory.index'))->with('success', 'Successfully Update Ticket Category!');
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+            return redirect(route('ticketcategory.index'))->with('failed', 'Failed Update Ticket Category!');
         }
     }
 
-    public function delete($id) : RedirectResponse {
-        $ticket = TicketCategory::where('id', $id)->first();
-
+    public function destroy(TicketCategory $ticketcategory) : RedirectResponse {
         try {
-            $ticket->delete();
-
-            return redirect(route('ticketcategory'))->with('success', 'Successfully Delete Ticket Category!');
-        } catch (\Throwable $th) {
-            return redirect(route('ticketcategory'))->with('failde', 'Failed Delete Ticket Category!');
+            $this->ticketcategory->delete($ticketcategory);
+            return redirect(route('ticketcategory.index'))->with('success', 'Successfully Delete Ticket Category!');
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+            return redirect(route('ticketcategory.index'))->with('failde', 'Failed Delete Ticket Category!');
         }
     }
 }
