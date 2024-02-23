@@ -92,7 +92,7 @@
             let id = $(this).data('id');
             $.ajax({
                 type: 'get',
-                url: '/facility/detail/' + id,
+                url: '/facility/' + id,
                 success: function(facility) {
                     if (facility.status == 'success') {
                         $('[data-value="name"]').val(facility.data.name);
@@ -104,10 +104,10 @@
 
         $(document).on('click', '[data-bs-target="#editModal"]', function() {
             let id = $(this).data('id');
-            $('#buttonEditFacility').attr('action', '/facility/edit/' + id);
+            $('#buttonEditFacility').attr('action', '/facility/' + id);
             $.ajax({
                 type: 'get',
-                url: '/facility/detail/' + id,
+                url: '/facility/' + id,
                 success: function(facility) {
                     if (facility.status == 'success') {
                         $('[data-value="name"]').val(facility.data.name);
@@ -119,7 +119,7 @@
 
         $(document).on('click', '[data-bs-target="#deleteModal"]', function() {
             let id = $(this).data('id');
-            $('#buttonDeleteFacility').attr('action', '/facility/delete/' + id);
+            $('#buttonDeleteFacility').attr('action', '/facility/' + id);
         });
     </script>
 @endpush
