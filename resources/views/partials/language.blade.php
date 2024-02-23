@@ -58,6 +58,7 @@
             </div>
             <form id="buttonEditLanguage" method="POST" class="d-inline-block w-100">
                 @csrf
+                @method("PUT")
                 <div class="modal-body">
                     <div class="mb-0">
                         <label for="name" class="form-label">Name</label>
@@ -87,6 +88,7 @@
             </div>
             <form id="buttonDeleteLanguage" method="POST" class="d-inline-block w-100">
                 @csrf
+                @method("DELETE")
                 <div class="modal-body">
                     <p>Are your sure want to delete this language?</p>
                 </div>
