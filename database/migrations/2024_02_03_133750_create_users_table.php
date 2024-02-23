@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('email', 255);
             $table->string('password', 100);
             $table->string('image')->nullable();
-            $table->enum('role', ['super admin', 'admin', 'staff', 'tourguide', 'customer']);
+            $table->enum('role', ['super_admin', 'admin', 'staff', 'tourguide', 'customer']);
             $table->timestamps();
         });
     }
