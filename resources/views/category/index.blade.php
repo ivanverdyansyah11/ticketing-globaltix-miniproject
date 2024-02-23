@@ -92,7 +92,7 @@
             let id = $(this).data('id');
             $.ajax({
                 type: 'get',
-                url: '/category/detail/' + id,
+                url: '/category/' + id,
                 success: function(category) {
                     if (category.status == 'success') {
                         $('[data-value="name"]').val(category.data.name);
@@ -104,10 +104,10 @@
 
         $(document).on('click', '[data-bs-target="#editModal"]', function() {
             let id = $(this).data('id');
-            $('#buttonEditCategory').attr('action', '/category/edit/' + id);
+            $('#buttonEditCategory').attr('action', '/category/' + id);
             $.ajax({
                 type: 'get',
-                url: '/category/detail/' + id,
+                url: '/category/' + id,
                 success: function(category) {
                     if (category.status == 'success') {
                         $('[data-value="name"]').val(category.data.name);
@@ -119,7 +119,7 @@
 
         $(document).on('click', '[data-bs-target="#deleteModal"]', function() {
             let id = $(this).data('id');
-            $('#buttonDeleteCategory').attr('action', '/category/delete/' + id);
+            $('#buttonDeleteCategory').attr('action', '/category/' + id);
         });
     </script>
 @endpush
