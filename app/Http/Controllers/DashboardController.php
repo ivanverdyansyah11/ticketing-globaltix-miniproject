@@ -13,7 +13,7 @@ use App\Models\Transaction;
 class DashboardController extends Controller
 {
     public function index() {
-        if (auth()->user()->role == 'super admin' || auth()->user()->role == 'admin') {
+        if (auth()->user()->role == 'super_admin' || auth()->user()->role == 'admin') {
             $total_order = count(Transaction::all());
             $total_language = count(Language::all());
             $total_region = count(Region::all());
