@@ -97,6 +97,7 @@
             </div>
             <form id="buttonEditCoupon" method="POST" class="d-inline-block w-100">
                 @csrf
+                @method("PUT")
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="coupon_code" class="form-label">Coupon Code</label>
@@ -153,6 +154,7 @@
             </div>
             <form id="buttonDeleteCoupon" method="POST" class="d-inline-block w-100">
                 @csrf
+                @method("DELETE")
                 <div class="modal-body">
                     <p>Are your sure want to delete this coupon?</p>
                 </div>
