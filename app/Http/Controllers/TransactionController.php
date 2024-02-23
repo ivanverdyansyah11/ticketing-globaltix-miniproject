@@ -17,7 +17,7 @@ use Illuminate\View\View;
 class TransactionController extends Controller
 {
     public function index(): View {
-        if (auth()->user()->role == 'super admin' || auth()->user()->role == 'admin') {
+        if (auth()->user()->role == 'super_admin' || auth()->user()->role == 'admin') {
             $transactions = Transaction::with(['touristSiteFacility.touristsite', 'ticket', 'customer'])->orderBy('created_at', 'DESC')->paginate(10);
         } elseif(auth()->user()->role == 'staff') {
             $staff = Staff::where('users_id', auth()->user()->id)->first();
