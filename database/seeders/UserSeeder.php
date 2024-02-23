@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
             'email' => 'ivanverdyansyah@gmail.com',
             'password' => bcrypt('ivan123'),
             'image' => 'profile-1.jpg',
-            'role' => 'super admin',
+            'role' => 'super_admin',
         ]);
 
         User::create([
